@@ -8,6 +8,19 @@
     margin-top: 8px;
   }
 
+  &.highlighted {
+    background: #f4f0ff;
+    border: 1px solid #835afd;
+
+    footer .user-info span {
+      color: #29292e;
+    }
+  }
+
+  &.answered {
+    background: #dbdcdd;
+  }
+
   p {
     color: #29292e;
   }
@@ -35,10 +48,16 @@
       }
     }
 
+    > div {
+      display: flex;
+      gap: 16px;
+    }
+
     button {
       border: 0;
       background: transparent;
       cursor: pointer;
+      transition: filter 0.2;
 
       &.like-button {
         display: flex;
@@ -48,6 +67,7 @@
 
         &.liked {
           color: #835afd;
+
           svg path {
             stroke: #835afd;
           }
