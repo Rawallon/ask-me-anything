@@ -14,6 +14,7 @@ export function NewRoom() {
   const history = useHistory();
 
   const [newRoom, setNewRoom] = useState('');
+  const [roomDescription, setRoomDescription] = useState('');
 
   async function handleCreateRoom(event: FormEvent) {
     event.preventDefault();
@@ -26,7 +27,8 @@ export function NewRoom() {
 
     const firebaseRoom = await roomRef.push({
       title: newRoom,
-      authorId: user?.id,
+      description: roomDescription,
+      author: { id: user?.id, name: user?.name, avatar: user?.avatar },
     });
 
     history.push(`/rooms/${firebaseRoom.key}`);
@@ -55,6 +57,11 @@ export function NewRoom() {
               placeholder="Nome da sala"
               onChange={(event) => setNewRoom(event.target.value)}
               value={newRoom}
+            />
+            <textarea
+              placeholder="Desc da sala"
+              onChange={(event) => setRoomDescription(event.target.value)}
+              value={roomDescription}
             />
             <Button type="submit">Criar sala</Button>
           </form>
