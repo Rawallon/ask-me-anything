@@ -11,6 +11,7 @@ import { useRoom } from '../hooks/useRoom';
 import { database } from '../services/firebase';
 
 import '../styles/rooms.scss';
+import { RoomPost } from './../components/RoomPost/RoomPost';
 
 type RoomParams = {
   id: string;
@@ -22,7 +23,7 @@ export function Room() {
   const [newQuestion, setNewQuestion] = useState('');
   const roomId = params.id;
 
-  const { title, questions } = useRoom(roomId);
+  const { title, description, author, questions } = useRoom(roomId);
 
   async function handleSendQuestion(event: FormEvent) {
     event.preventDefault();
@@ -75,10 +76,7 @@ export function Room() {
       </header>
 
       <main>
-        <div className="room-title">
-          <h1>Sala {title}</h1>
-          {questions.length > 0 && <span>{questions.length} pergunta(s)</span>}
-        </div>
+        <RoomPost author={author} description={description} title={title} />
 
         <form onSubmit={handleSendQuestion}>
           <textarea
