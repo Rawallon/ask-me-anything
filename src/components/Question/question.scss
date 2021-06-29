@@ -59,9 +59,10 @@
       cursor: pointer;
       transition: filter 0.2;
 
+      display: flex;
+      align-items: flex-end;
+
       &.like-button {
-        display: flex;
-        align-items: flex-end;
         color: #737380;
         gap: 8px;
 
