@@ -13,7 +13,7 @@ type PostProps = {
 
 export function RoomPost({ title, description, author }: PostProps) {
   return (
-    <div className="wrapper">
+    <div className="container">
       <div className="user-info">
         <img src={author.avatar} alt={author.name} />
         <span>{author.name}</span>
