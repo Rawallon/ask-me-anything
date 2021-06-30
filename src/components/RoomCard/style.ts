@@ -6,7 +6,9 @@ export const RoomCardContainer = styled.div`
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   padding: 24px;
-  margin: 2rem 0;
+  & + & {
+    margin: 2rem 0;
+  }
 
   .user-info {
     display: flex;
