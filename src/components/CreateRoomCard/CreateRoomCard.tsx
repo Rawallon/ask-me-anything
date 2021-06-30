@@ -54,8 +54,6 @@ export function CreateRoomCard({ user, createRoom }: RoomItemProps) {
           />
         ) : (
           <MicroModal
-            closeOnEscapePress={false}
-            closeOnOverlayClick={false}
             trigger={(open) => (
               <input
                 className="post-info"
@@ -67,7 +65,7 @@ export function CreateRoomCard({ user, createRoom }: RoomItemProps) {
           </MicroModal>
         )}
       </div>
-      <div className={`${shouldHide ? 'hidden-row' : ''} second-row`}>
+      <div className={`${shouldHide ? 'hidden-row' : 'second-row'}`}>
         <TextareaAutosize
           minRows={7}
           className="open"

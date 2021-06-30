@@ -10,12 +10,13 @@ export const CreateRoomCardContainer = styled.div`
   .first-row {
     display: flex;
     align-items: center;
-    margin-bottom: 1rem;
   }
+
   .hidden-row {
     display: none !important;
   }
   .second-row {
+    margin-top: 1rem;
     display: flex;
     flex-direction: column;
   }

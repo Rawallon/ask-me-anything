@@ -33,7 +33,8 @@ export function RoomCard({ room }: RoomItemProps) {
   return (
     <RoomCardContainer onClick={handleJoinRoom}>
       <div className="user-info">
-        Criado por <span>{room.author.name}</span>
+        Criado por{` `}
+        <span>{room.author.name}</span>
       </div>
       <div className="post-info">
         <h1>{room.title}</h1>
