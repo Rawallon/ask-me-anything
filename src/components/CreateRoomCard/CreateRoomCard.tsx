@@ -53,11 +53,18 @@ export function CreateRoomCard({ user, createRoom }: RoomItemProps) {
             onBlur={handleShouldDisplay}
           />
         ) : (
-            <input
-            className="post-info"
-            placeholder="Criar post"
-            onMouseDown={open}
-          />
+          <MicroModal
+            closeOnEscapePress={false}
+            closeOnOverlayClick={false}
+            trigger={(open) => (
+              <input
+                className="post-info"
+                placeholder="Criar post"
+                onMouseDown={open}
+              />
+            )}>
+            {(handleClose) => <SignInModal handleClose={handleClose} />}
+          </MicroModal>
         )}
       </div>
       <div className={`${shouldHide ? 'hidden-row' : ''} second-row`}>
