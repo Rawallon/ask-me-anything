@@ -3,6 +3,9 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { CreateRoomCardContainer } from './style';
 import { Button } from './../Button/Button';
 import { useState } from 'react';
+import anonAvatar from '../../assets/images/anon.svg';
+import MicroModal from 'react-micro-modal';
+import SignInModal from './../SignInModal/SignInModal';
 
 interface RoomItemProps {
   user:
@@ -21,6 +24,7 @@ export function CreateRoomCard({ user, createRoom }: RoomItemProps) {
   const [shouldHide, setShouldHide] = useState(true);
 
   function handleShouldDisplay() {
+    if (!user) return;
     if (shouldHide === true) {
       setShouldHide(false);
     } else if (roomName === '') {
@@ -35,15 +39,26 @@ export function CreateRoomCard({ user, createRoom }: RoomItemProps) {
   return (
     <CreateRoomCardContainer>
       <div className="first-row">
-        <img src={user?.avatar} alt={user?.name} />
-        <input
-          className="post-info"
-          placeholder="Criar post"
-          value={roomName}
-          onChange={(event) => setRoomName(event.target.value)}
-          onFocus={handleShouldDisplay}
-          onBlur={handleShouldDisplay}
+        <img
+          src={user ? user.avatar : anonAvatar}
+          alt={user ? user.name : 'Anonymous'}
         />
+        {user ? (
+          <input
+            className={`post-info ${shouldHide ? '' : 'open'}`}
+            placeholder="Criar post"
+            value={roomName}
+            onChange={(event) => setRoomName(event.target.value)}
+            onFocus={handleShouldDisplay}
+            onBlur={handleShouldDisplay}
+          />
+        ) : (
+            <input
+            className="post-info"
+            placeholder="Criar post"
+            onMouseDown={open}
+          />
+        )}
       </div>
       <div className={`${shouldHide ? 'hidden-row' : ''} second-row`}>
         <TextareaAutosize
