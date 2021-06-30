@@ -1,20 +1,19 @@
-import { FormEvent, useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { FormEvent, useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 
-import logoImg from '../assets/images/logo.svg';
-import checkImg from '../assets/images/check.svg';
 import answerImg from '../assets/images/answer.svg';
+import checkImg from '../assets/images/check.svg';
 
 import { Button } from '../components/Button/Button';
 import { Question } from '../components/Question/Question';
-import { RoomCode } from '../components/RoomCode/RoomCode';
 import { useAuth } from '../hooks/useAuth';
 import { useRoom } from '../hooks/useRoom';
 import { database } from '../services/firebase';
+import { HeaderLayout } from './../components/Layout/Header/HeaderLayout';
+import { RoomPost } from './../components/RoomPost/RoomPost';
+import { Container } from './../components/Layout/Container/Container';
 
 import '../styles/rooms.scss';
-import { RoomPost } from './../components/RoomPost/RoomPost';
-import { HeaderLayout } from './../components/Layout/Header/HeaderLayout';
 
 type RoomParams = {
   id: string;
@@ -176,7 +175,7 @@ export function Room() {
     );
   }
   return (
-    <div id="page-room">
+    <Container>
       <HeaderLayout
         user={user}
         signOut={signOut}
@@ -226,6 +225,6 @@ export function Room() {
           })}
         </div>
       </main>
-    </div>
+    </Container>
   );
 }

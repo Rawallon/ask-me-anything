@@ -1,10 +1,11 @@
-import { useAuth } from '../hooks/useAuth';
 import { useEffect, useState } from 'react';
-import { database } from '../services/firebase';
-import { RoomCard } from '../components/RoomCard/RoomCard';
-import logoImg from '../assets/images/logo.svg';
-import { CreateRoomCard } from './../components/CreateRoomCard/CreateRoomCard';
 import { useHistory } from 'react-router-dom';
+
+import { RoomCard } from '../components/RoomCard/RoomCard';
+import { useAuth } from '../hooks/useAuth';
+import { database } from '../services/firebase';
+import { CreateRoomCard } from './../components/CreateRoomCard/CreateRoomCard';
+import { Container } from './../components/Layout/Container/Container';
 import { HeaderLayout } from './../components/Layout/Header/HeaderLayout';
 
 type FirebaseQuestions = Record<
@@ -36,7 +37,6 @@ type RoomType = {
 export function RoomListing() {
   const history = useHistory();
   const [rooms, setRooms] = useState<RoomType[]>([]);
-  const { user } = useAuth();
   const { user, signOut } = useAuth();
   useEffect(() => {
     try {
@@ -78,12 +78,7 @@ export function RoomListing() {
   }
 
   return (
-    <div id="page-room">
-      <header>
-        <div className="content">
-          <img src={logoImg} alt="Letmeask" />
-        </div>
-      </header>
+    <Container>
       <HeaderLayout user={user} signOut={signOut} />
 
       <main>
@@ -94,6 +89,6 @@ export function RoomListing() {
           rooms?.map((room) => <RoomCard key={room.id} room={room} />)
         )}
       </main>
-    </div>
+    </Container>
   );
 }
