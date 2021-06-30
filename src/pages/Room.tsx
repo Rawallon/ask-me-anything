@@ -14,6 +14,7 @@ import { database } from '../services/firebase';
 
 import '../styles/rooms.scss';
 import { RoomPost } from './../components/RoomPost/RoomPost';
+import { HeaderLayout } from './../components/Layout/Header/HeaderLayout';
 
 type RoomParams = {
   id: string;
@@ -22,7 +23,7 @@ type RoomParams = {
 export function Room() {
   const history = useHistory();
 
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const params = useParams<RoomParams>();
   const [newQuestion, setNewQuestion] = useState('');
   const [isOwner, setIsOwner] = useState(false);
@@ -176,20 +177,13 @@ export function Room() {
   }
   return (
     <div id="page-room">
-      <header>
-        <div className="content">
-          <img src={logoImg} alt="Letmeask" />
-          <div>
-            <RoomCode code={roomId} />
-            {isOwner && (
-              <Button isOutlined onClick={handleEndRoom}>
-                Encerrar sala
-              </Button>
-            )}
-          </div>
-        </div>
-      </header>
-
+      <HeaderLayout
+        user={user}
+        signOut={signOut}
+        handleEndRoom={handleEndRoom}
+        isOwner={isOwner}
+        roomId={roomId}
+      />
       <main>
         <RoomPost author={author} description={description} title={title} />
 

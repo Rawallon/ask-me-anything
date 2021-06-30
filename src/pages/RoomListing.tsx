@@ -5,6 +5,7 @@ import { RoomCard } from '../components/RoomCard/RoomCard';
 import logoImg from '../assets/images/logo.svg';
 import { CreateRoomCard } from './../components/CreateRoomCard/CreateRoomCard';
 import { useHistory } from 'react-router-dom';
+import { HeaderLayout } from './../components/Layout/Header/HeaderLayout';
 
 type FirebaseQuestions = Record<
   string,
@@ -36,6 +37,7 @@ export function RoomListing() {
   const history = useHistory();
   const [rooms, setRooms] = useState<RoomType[]>([]);
   const { user } = useAuth();
+  const { user, signOut } = useAuth();
   useEffect(() => {
     try {
       database.ref('rooms').on('value', function (snapshot) {
@@ -82,6 +84,7 @@ export function RoomListing() {
           <img src={logoImg} alt="Letmeask" />
         </div>
       </header>
+      <HeaderLayout user={user} signOut={signOut} />
 
       <main>
         <CreateRoomCard user={user} createRoom={handleCreateRoom} />
