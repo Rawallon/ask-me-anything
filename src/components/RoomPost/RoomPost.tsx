@@ -1,5 +1,5 @@
 import React from 'react';
-import './RoomPost.scss';
+import { RoomPostCard } from './style';
 
 type PostProps = {
   title: string;
@@ -13,7 +13,7 @@ type PostProps = {
 
 export function RoomPost({ title, description, author }: PostProps) {
   return (
-    <div className="container">
+    <RoomPostCard>
       <div className="user-info">
         <img src={author.avatar} alt={author.name} />
         <span>{author.name}</span>
@@ -22,6 +22,6 @@ export function RoomPost({ title, description, author }: PostProps) {
         <h1>{title}</h1>
         <p>{description}</p>
       </div>
-    </div>
+    </RoomPostCard>
   );
 }
