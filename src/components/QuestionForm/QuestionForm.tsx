@@ -5,14 +5,16 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { SignInDialog } from './../SignInDialog/SignInDialog';
 
 type QuestionFormProp = {
-  handleSendQuestion: () => void;
-  user: {
-    avatar: string;
-    name: string;
-  };
+  handleSendQuestion: (value: string) => void;
+  user:
+    | {
+        avatar: string;
+        name: string;
+      }
+    | undefined;
 };
 
-export function QuestionForm({ handleSendQuestion, user }: any) {
+export function QuestionForm({ handleSendQuestion, user }: QuestionFormProp) {
   const [newQuestion, setNewQuestion] = useState('');
   const [showDialog, setShowDialog] = useState(false);
 
