@@ -1,4 +1,7 @@
 import React from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.bubble.css';
+
 import { RoomPostCard } from './style';
 
 type PostProps = {
@@ -20,7 +23,12 @@ export function RoomPost({ title, description, author }: PostProps) {
       </div>
       <div className="post-info">
         <h1>{title}</h1>
-        <p>{description}</p>
+        <ReactQuill
+          value={description}
+          readOnly={true}
+          theme={'bubble'}
+          className="quill-description"
+        />
       </div>
     </RoomPostCard>
   );

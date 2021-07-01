@@ -35,6 +35,7 @@ export function QuestionForm({ handleSendQuestion, user }: QuestionFormProp) {
         value={newQuestion}
         placeholder="O que você quer perguntar?"
         onChange={(value) => setNewQuestion(value)}
+        className="quill-question"
       />
       <SignInDialog isOpen={showDialog} setIsOpen={setShowDialog} />
       <div className="form-footer">

@@ -4,7 +4,14 @@
  * Copyright (c) 2014, Jason Chen
  * Copyright (c) 2013, salesforce.com
  */
-.quill {
+.quill-description {
+  margin: -12px -15px;
+}
+.quill-description > * {
+  font: 400 16px 'Roboto', sans-serif !important;
+}
+
+.quill-question {
   background: #fff;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   border-radius: 8px;

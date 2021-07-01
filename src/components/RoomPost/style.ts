@@ -30,9 +30,9 @@ export const RoomPostCard = styled.div`
       font-family: 'Poppins', sans-serif;
       font-size: 24px;
       color: #29292e;
+      margin-bottom: 1.5rem;
     }
     p {
-      margin-top: 1.5rem;
       font-size: 16px;
       line-height: 24px;
     }
