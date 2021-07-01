@@ -1,8 +1,10 @@
 import styled from 'styled-components'
-
-export const RoomCardContainer = styled.div`
+interface RoomCardContainerProps {
+  readonly isEnded: boolean
+}
+export const RoomCardContainer = styled.div<RoomCardContainerProps>`
   cursor: pointer;
-  background: #fefefe;
+  background: ${({ isEnded }) => (isEnded ? '#dbdcdd;' : '#fefefe;')};
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   padding: 24px;
@@ -46,12 +48,19 @@ export const RoomCardContainer = styled.div`
       left: 0;
       width: 100%;
       height: 100%;
+
       background: linear-gradient(
         180deg,
-        rgba(255, 255, 255, 0) 24.48%,
-        rgba(254, 254, 254, 0.5) 30.73%,
-        rgba(254, 254, 254, 0.8) 41.67%,
-        #fefefe 100%
+        ${({ isEnded }) =>
+            isEnded ? 'rgba(219, 220, 221, 0);' : 'rgba(255, 255, 255, 0)'}
+          24.48%,
+        ${({ isEnded }) =>
+            isEnded ? 'rgba(219, 220, 221, 0.5);' : 'rgba(255, 255, 255, 0.5)'}
+          30.73%,
+        ${({ isEnded }) =>
+            isEnded ? 'rgba(219, 220, 221, 0.8);' : 'rgba(255, 255, 255, 0.8)'}
+          41.67%,
+        ${({ isEnded }) => (isEnded ? '#dbdcdd;' : '#fefefe')} 100%
       );
     }
   }

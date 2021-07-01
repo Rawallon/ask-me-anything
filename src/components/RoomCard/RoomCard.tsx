@@ -23,17 +23,14 @@ export function RoomCard({ room }: RoomItemProps) {
   const history = useHistory();
 
   async function handleJoinRoom() {
-    if (room?.endedAt) {
-      console.error('Falha ao entrar nesta sala. A sala já foi encerrada!');
-      return;
-    }
-
     history.push(`/rooms/${room.id}`);
     console.log('Você entrou na sala!');
   }
 
   return (
-    <RoomCardContainer onClick={handleJoinRoom}>
+    <RoomCardContainer
+      isEnded={room?.endedAt ? true : false}
+      onClick={handleJoinRoom}>
       <div className="user-info">
         Criado por{` `}
         <span>{room.author.name}</span>

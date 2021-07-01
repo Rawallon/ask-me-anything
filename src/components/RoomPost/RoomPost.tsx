@@ -23,12 +23,14 @@ export function RoomPost({ title, description, author }: PostProps) {
       </div>
       <div className="post-info">
         <h1>{title}</h1>
-        <ReactQuill
-          value={description}
-          readOnly={true}
-          theme={'bubble'}
-          className="quill-description"
-        />
+        {description && (
+          <ReactQuill
+            value={description}
+            readOnly={true}
+            theme={'bubble'}
+            className="quill-description"
+          />
+        )}
       </div>
     </RoomPostCard>
   );

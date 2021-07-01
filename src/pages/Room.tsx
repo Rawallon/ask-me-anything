@@ -29,12 +29,13 @@ export function Room() {
   const [showSignInModal, setShowSignInModal] = useState(false);
   const roomId = params.id;
 
-  const { title, description, author, questions } = useRoom(roomId);
+  const { title, description, author, questions, isEnded } = useRoom(roomId);
 
   useEffect(() => {
     if (author.id === user?.id) {
       setIsOwner(true);
     }
+
     return () => {
       setIsOwner(false);
     };
@@ -161,11 +162,12 @@ export function Room() {
         handleEndRoom={handleEndRoom}
         isOwner={isOwner}
         roomId={roomId}
+        isEnded={isEnded}
       />
       <main>
         <RoomPost author={author} description={description} title={title} />
 
-        {!isOwner && (
+        {!isOwner && !isEnded && (
           <QuestionForm handleSendQuestion={handleSendQuestion} user={user} />
         )}
 
@@ -178,7 +180,7 @@ export function Room() {
                 author={question.author}
                 isAnswered={question.isAnswered}
                 isHighlighted={question.isHighlighted}>
-                {renderQuestionCardButtons(question)}
+                {!isEnded && renderQuestionCardButtons(question)}
               </Question>
             );
           })}

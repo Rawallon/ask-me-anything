@@ -15,6 +15,7 @@ type HeaderProps = {
   user: any;
   signOut: () => void;
   isOwner?: boolean;
+  isEnded?: boolean;
   roomId?: string;
   handleEndRoom?: () => void;
 };
@@ -23,6 +24,7 @@ export function HeaderLayout({
   user,
   signOut,
   isOwner = false,
+  isEnded = false,
   roomId,
   handleEndRoom,
 }: HeaderProps) {
@@ -56,7 +58,7 @@ export function HeaderLayout({
                   enterTo="animation-in"
                   leave="animation-out">
                   <Menu.Items className="dropdown">
-                    {roomId && isOwner && (
+                    {roomId && isOwner && !isEnded && (
                       <Menu.Item>
                         <button onClick={handleEndRoom}>
                           <LockIcon />

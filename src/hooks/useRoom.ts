@@ -42,6 +42,7 @@ type useRoomReturnType = {
     name: string
     avatar: string
   }
+  isEnded: boolean
 }
 export function useRoom (roomId: string): useRoomReturnType {
   const { user } = useAuth()
@@ -53,6 +54,7 @@ export function useRoom (roomId: string): useRoomReturnType {
     name: '',
     avatar: ''
   })
+  const [isEnded, setIsEnded] = useState(false)
 
   useEffect(() => {
     const roomRef = database.ref(`rooms/${roomId}`)
@@ -81,6 +83,7 @@ export function useRoom (roomId: string): useRoomReturnType {
       setDescription(databaseRoom.description)
       setAuthor(databaseRoom.author)
       setQuestions(parsedQuestions)
+      setIsEnded(databaseRoom.endedAt ? true : false)
     })
 
     return () => {
@@ -88,5 +91,5 @@ export function useRoom (roomId: string): useRoomReturnType {
     }
   }, [roomId, user?.id])
 
-  return { questions, title, description, author }
+  return { questions, title, description, author, isEnded }
 }
