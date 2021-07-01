@@ -7,23 +7,6 @@ export const RoomPostCard = styled.div`
   padding: 24px;
   margin: 2rem 0;
 
-  & + .question {
-    margin-top: 8px;
-  }
-
-  &.highlighted {
-    background: #f4f0ff;
-    border: 1px solid #835afd;
-
-    footer .user-info span {
-      color: #29292e;
-    }
-  }
-
-  &.answered {
-    background: #dbdcdd;
-  }
-
   .user-info {
     display: flex;
     align-items: center;

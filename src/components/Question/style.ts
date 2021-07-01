@@ -11,8 +11,8 @@ export const QuestionCard = styled.div`
   }
 
   &.highlighted {
-    background: #f4f0ff;
-    border: 1px solid #835afd;
+    background: #e5f4ff;
+    border: 1px solid #53d7ff;
 
     footer .user-info span {
       color: #29292e;
@@ -69,10 +69,10 @@ export const QuestionCard = styled.div`
         gap: 8px;
 
         &.liked {
-          color: #835afd;
+          color: #53d7ff;
 
           svg path {
-            stroke: #835afd;
+            stroke: #53d7ff;
           }
         }
       }

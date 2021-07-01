@@ -38,8 +38,8 @@ export const UserMenu = styled.div`
     justify-content: center;
 
     background: #fff;
-    border: 1px solid #835afd;
-    color: #835afd;
+    border: 1px solid #4af6ff;
+    color: #000;
     border-radius: 8px;
     font-weight: 500;
     font-size: 0.875rem;
@@ -55,7 +55,7 @@ export const UserMenu = styled.div`
       transform: scale(1);
     }
     &:active {
-      background: rgba(131, 90, 253, 20%);
+      background: rgba(74, 246, 255, 20%);
       svg {
         transform: scale(0.7);
       }
@@ -67,8 +67,8 @@ export const UserMenu = styled.div`
     border-radius: 8px;
     width: 100%;
     background: rgb(255, 255, 255);
-    border: 1px solid rgb(131, 90, 253);
-    color: rgb(131, 90, 253);
+    border: 1px solid #4af6ff;
+    color: #4af6ff;
     padding: 0.25rem;
 
     transform-origin: top right;
@@ -84,7 +84,7 @@ export const UserMenu = styled.div`
       text-align: left;
       background: #fff;
       border: 0;
-      color: #835afd;
+      color: #5bbbff;
       border-radius: 8px;
 
       font-size: 0.875rem;
@@ -103,7 +103,7 @@ export const UserMenu = styled.div`
       }
 
       &:hover {
-        background: #835afd;
+        background: linear-gradient(to left, #4af6ff 0%, #4ceeff 100%);
         color: #fff;
       }
     }

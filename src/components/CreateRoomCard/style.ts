@@ -39,11 +39,11 @@ export const CreateRoomCardContainer = styled.div`
     outline: none;
 
     &:hover {
-      border: 1px solid #835afd;
+      border: 1px solid #5bbbff;
       background: #fff;
     }
     &.open {
-      border: 1px solid #835afd;
+      border: 1px solid #5bbbff;
       background: #fff;
     }
   }

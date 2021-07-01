@@ -45,7 +45,7 @@ export const FormContainer = styled.form`
       button {
         background: transparent;
         border: 0;
-        color: #835afd;
+        color: #53d7ff;
         text-decoration: underline;
         font-size: 14px;
         font-weight: 500;
