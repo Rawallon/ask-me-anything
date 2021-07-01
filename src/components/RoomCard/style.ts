@@ -27,15 +27,19 @@ export const RoomCardContainer = styled.div`
       font-family: 'Poppins', sans-serif;
       font-size: 24px;
       color: #29292e;
+      margin-bottom: 0.75rem;
     }
-    p {
+    .post-description {
       color: #737380;
-      margin-top: 0.75rem;
       font-size: 16px;
       line-height: 24px;
       position: relative;
+      max-height: 70px;
+      overflow: hidden;
+      margin: -12px -15px;
     }
-    p::before {
+    .post-description::before {
+      z-index: 1;
       content: '';
       position: absolute;
       top: 0;

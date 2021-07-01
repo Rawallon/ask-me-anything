@@ -1,4 +1,6 @@
 import { useHistory } from 'react-router-dom';
+import ReactQuill from 'react-quill';
+import '../../styles/quill.ama.css';
 import { RoomCardContainer } from './style';
 
 type RoomType = {
@@ -38,7 +40,16 @@ export function RoomCard({ room }: RoomItemProps) {
       </div>
       <div className="post-info">
         <h1>{room.title}</h1>
-        {room.description && <p>{room.description}</p>}
+        {room.description && (
+          <div className="post-description">
+            <ReactQuill
+              value={room.description}
+              readOnly={true}
+              theme={'bubble'}
+              className="quill-short-description"
+            />
+          </div>
+        )}
       </div>
     </RoomCardContainer>
   );
