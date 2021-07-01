@@ -38,7 +38,7 @@ export function SignInDialog({ isOpen, setIsOpen }: SignInDialogProps) {
         <DialogContainer>
           <Dialog.Overlay className="overlay" />
           <Dialog.Title as="header">
-            <img src={logoImg} alt="Letmeask" />
+            <img src={logoImg} alt="Ask Me Anything Logo" />
             <Dialog.Title as="h1">Entrar</Dialog.Title>
             <button onClick={() => setIsOpen(false)}>
               <CloseIcon />
