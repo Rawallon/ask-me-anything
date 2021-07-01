@@ -5,6 +5,7 @@ import logoImg from '../../assets/images/logo-dark.svg';
 import { useAuth } from './../../hooks/useAuth';
 import googleIconImg from '../../assets/images/google-icon.svg';
 import { DialogContainer, GoogleSignButton } from './style';
+import { CloseIcon } from './../Icon/Icon';
 
 type SignInDialogProps = {
   isOpen: boolean;
@@ -36,8 +37,13 @@ export function SignInDialog({ isOpen, setIsOpen }: SignInDialogProps) {
         className="modal">
         <DialogContainer>
           <Dialog.Overlay className="overlay" />
-          <img src={logoImg} alt="Letmeask" />
-          <Dialog.Title as="h1">Entrar</Dialog.Title>
+          <Dialog.Title as="header">
+            <img src={logoImg} alt="Letmeask" />
+            <Dialog.Title as="h1">Entrar</Dialog.Title>
+            <button onClick={() => setIsOpen(false)}>
+              <CloseIcon />
+            </button>
+          </Dialog.Title>
           <Dialog.Description as="div" className="separator">
             Para continuar você precisa ter uma conta
           </Dialog.Description>

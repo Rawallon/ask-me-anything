@@ -7,10 +7,33 @@ export const DialogContainer = styled.div`
   max-width: 500px;
   padding: 2rem;
   border-radius: 8px;
-
   background: #fff;
 
+  header {
+    position: relative;
+    > button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      color: #29292e;
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 50%;
+      padding: 0.25rem;
+      border: 0;
+      display: flex;
+      transition: all 0.2s;
+
+      :hover {
+        background: rgba(0, 0, 0, 0.2);
+      }
+      svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
   h1 {
+    position: relative;
     font-family: 'Poppins', sans-serif;
     font-size: 24px;
     color: #29292e;
