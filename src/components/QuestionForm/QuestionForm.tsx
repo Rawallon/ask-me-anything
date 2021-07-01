@@ -47,7 +47,10 @@ export function QuestionForm({ handleSendQuestion, user }: QuestionFormProp) {
         ) : (
           <span>
             Para enviar uma pergunta,{' '}
-            <button onClick={() => setShowDialog(true)}>faça seu login</button>.
+            <button type="button" onClick={() => setShowDialog(true)}>
+              faça seu login
+            </button>
+            .
           </span>
         )}
         <Button type="submit" disabled={!user}>

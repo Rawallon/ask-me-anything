@@ -34,6 +34,7 @@ type QuestionType = {
   likeId: string | undefined
 }
 type useRoomReturnType = {
+  isLoading: boolean
   questions: QuestionType[]
   title: string
   description: string
@@ -46,6 +47,7 @@ type useRoomReturnType = {
 }
 export function useRoom (roomId: string): useRoomReturnType {
   const { user } = useAuth()
+  const [isLoading, setIsLoading] = useState(true)
   const [questions, setQuestions] = useState<QuestionType[]>([])
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
@@ -61,7 +63,11 @@ export function useRoom (roomId: string): useRoomReturnType {
 
     roomRef.on('value', room => {
       const databaseRoom = room.val()
-      const firebaseQuestions: FirebaseQuestions = databaseRoom.questions ?? {}
+      if (!databaseRoom) {
+        setIsLoading(false)
+        return
+      }
+      const firebaseQuestions: FirebaseQuestions = databaseRoom.questions || {}
 
       const parsedQuestions = Object.entries(firebaseQuestions).map(
         ([key, value]) => {
@@ -78,7 +84,7 @@ export function useRoom (roomId: string): useRoomReturnType {
           }
         }
       )
-
+      setIsLoading(false)
       setTitle(databaseRoom.title)
       setDescription(databaseRoom.description)
       setAuthor(databaseRoom.author)
@@ -91,5 +97,5 @@ export function useRoom (roomId: string): useRoomReturnType {
     }
   }, [roomId, user?.id])
 
-  return { questions, title, description, author, isEnded }
+  return { isLoading, questions, title, description, author, isEnded }
 }

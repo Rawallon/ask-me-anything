@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import answerImg from '../assets/images/answer.svg';
 import checkImg from '../assets/images/check.svg';
@@ -22,23 +22,28 @@ type RoomParams = {
 };
 
 export function Room() {
+  const history = useHistory();
   const { user, signOut } = useAuth();
   const params = useParams<RoomParams>();
   const [isOwner, setIsOwner] = useState(false);
   const [showSignInModal, setShowSignInModal] = useState(false);
   const roomId = params.id;
 
-  const { title, description, author, questions, isEnded } = useRoom(roomId);
+  const { isLoading, title, description, author, questions, isEnded } =
+    useRoom(roomId);
 
   useEffect(() => {
-    if (author.id === user?.id) {
-      setIsOwner(true);
+    if (!isLoading) {
+      if (!author.id) history.push('/');
+      if (author.id === user?.id) {
+        setIsOwner(true);
+      }
     }
 
     return () => {
       setIsOwner(false);
     };
-  }, [author.id, user?.id]);
+  }, [author.id, history, isLoading, user?.id]);
 
   async function handleSendQuestion(questionText: string) {
     if (!user) {
