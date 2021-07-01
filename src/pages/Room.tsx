@@ -14,7 +14,8 @@ import { Container } from './../components/Layout/Container/Container';
 
 import { QuestionForm } from './../components/QuestionForm/QuestionForm';
 import { SignInDialog } from './../components/SignInDialog/SignInDialog';
-import { LikeIcon } from './../components/Icon/Icon';
+import { LikeIcon, WarningIcon } from './../components/Icon/Icon';
+import { AlertCard } from '../components/AlertCard/AlertCard';
 
 type RoomParams = {
   id: string;
@@ -170,7 +171,11 @@ export function Room() {
         {!isOwner && !isEnded && (
           <QuestionForm handleSendQuestion={handleSendQuestion} user={user} />
         )}
-
+        {isEnded && (
+          <AlertCard type="warning">
+            <WarningIcon /> Essa sala foi encerrada
+          </AlertCard>
+        )}
         <div className="question-list">
           {questions.map((question) => {
             return (
