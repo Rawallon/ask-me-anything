@@ -1,11 +1,9 @@
-import { useHistory } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
 import { CreateRoomCardContainer } from './style';
 import { Button } from './../Button/Button';
 import { useState } from 'react';
 import anonAvatar from '../../assets/images/anon.svg';
-import MicroModal from 'react-micro-modal';
-import SignInModal from './../SignInModal/SignInModal';
+import { SignInDialog } from './../SignInDialog/SignInDialog';
 
 interface RoomItemProps {
   user:
@@ -19,6 +17,7 @@ interface RoomItemProps {
 }
 
 export function CreateRoomCard({ user, createRoom }: RoomItemProps) {
+  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
   const [roomName, setRoomName] = useState('');
   const [roomDescription, setRoomDescription] = useState('');
   const [shouldHide, setShouldHide] = useState(true);
@@ -53,16 +52,17 @@ export function CreateRoomCard({ user, createRoom }: RoomItemProps) {
             onBlur={handleShouldDisplay}
           />
         ) : (
-          <MicroModal
-            trigger={(open) => (
-              <input
-                className="post-info"
-                placeholder="Criar post"
-                onMouseDown={open}
-              />
-            )}>
-            {(handleClose) => <SignInModal handleClose={handleClose} />}
-          </MicroModal>
+          <>
+            <input
+              className="post-info"
+              placeholder="Criar post"
+              onMouseDown={() => setIsSignInModalOpen(true)}
+            />
+            <SignInDialog
+              isOpen={isSignInModalOpen}
+              setIsOpen={setIsSignInModalOpen}
+            />
+          </>
         )}
       </div>
       <div className={`${shouldHide ? 'hidden-row' : 'second-row'}`}>
