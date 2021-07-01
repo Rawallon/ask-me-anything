@@ -1,13 +1,21 @@
 <div align="center">
-  <img src=".github/letmeask-logo.svg" alt="Let Me Ask logo">
+  <img src=".github/askmeanything-logo.svg" alt="Ask Me Anything logo">
 </div>
 
-## Let Me Ask
+## Ask Me Anything
 <h4 align="center">
-  Let Me Ask is a platform built to let you gather questions from your viewers during your stream and let them vote for which are the best questions for you to answer.
+  Ask Me Anything is a platform built to let you gather questions from your viewers during your stream and let them vote for which are the best questions for you to answer.
 </h4>
 
-![Let Me Ask preview](.github/app-preview.png)
+# Live Demo
+
+<a title="Deployed with vercel" href="https://ask-me-anything.vercel.app/">
+<img alt="Deployed with vercel" src="https://img.shields.io/badge/Deployed%20with%20Vercel-%230070f3?style=plastic&logo=vercel&logoColor=white" width="200px" />
+</a>
+
+
+## Preview
+![Ask Me Anything preview](.github/app-preview.png)
 
 ## Tecnologies
 
@@ -16,21 +24,19 @@ This project was developed using cutting edge front-end technologies.
 
 - [ReactJS](https://reactjs.org/)
 - [Typescript](https://www.typescriptlang.org/)
+- [Styled Components](https://www.styled-components.com/)
+- [Quilljs](https://www.quilljs.com/)
 - [Firebase Authentication](https://firebase.google.com/products/auth)
 - [Firebase Realtime Database](https://firebase.google.com/products/realtime-database)
 
-## 💻 Getting started
-
-### Requirements
+## How to run 
 
 - You need to install [Node.js](https://nodejs.org/en/download/)  to run this project.
-
-### How to run 
 
 ```bash
 
 # Clone and access the folder
-$ git clone https://github.com/rawallon/let-me-ask.git && cd let-me-ask
+$ git clone https://github.com/rawallon/ask-me-anything.git && cd ask-me-anything
 
 # Install the dependencies
 $ npm install
