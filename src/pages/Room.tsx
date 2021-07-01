@@ -165,7 +165,9 @@ export function Room() {
       <main>
         <RoomPost author={author} description={description} title={title} />
 
-        <QuestionForm handleSendQuestion={handleSendQuestion} user={user} />
+        {!isOwner && (
+          <QuestionForm handleSendQuestion={handleSendQuestion} user={user} />
+        )}
 
         <div className="question-list">
           {questions.map((question) => {

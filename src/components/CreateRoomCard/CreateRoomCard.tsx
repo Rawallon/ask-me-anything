@@ -1,9 +1,11 @@
-import TextareaAutosize from 'react-textarea-autosize';
-import { CreateRoomCardContainer } from './style';
-import { Button } from './../Button/Button';
 import { useState } from 'react';
+import ReactQuill from 'react-quill';
+import '../../styles/quill.ama.css';
+
 import anonAvatar from '../../assets/images/anon.svg';
+import { Button } from './../Button/Button';
 import { SignInDialog } from './../SignInDialog/SignInDialog';
+import { CreateRoomCardContainer } from './style';
 
 interface RoomItemProps {
   user:
@@ -66,12 +68,10 @@ export function CreateRoomCard({ user, createRoom }: RoomItemProps) {
         )}
       </div>
       <div className={`${shouldHide ? 'hidden-row' : 'second-row'}`}>
-        <TextareaAutosize
-          minRows={7}
-          className="open"
-          placeholder="Descrição (opcional)"
+        <ReactQuill
           value={roomDescription}
-          onChange={(event) => setRoomDescription(event.target.value)}
+          placeholder="Descrição (opcional)"
+          onChange={(value) => setRoomDescription(value)}
         />
         <Button onClick={handleCreateRoom}>Postar</Button>
       </div>

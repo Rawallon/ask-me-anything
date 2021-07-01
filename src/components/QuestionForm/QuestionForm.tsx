@@ -1,7 +1,9 @@
 import React, { FormEvent, useState } from 'react';
+import ReactQuill from 'react-quill';
+import '../../styles/quill.ama.css';
+
 import { FormContainer } from './style';
 import { Button } from './../Button/Button';
-import TextareaAutosize from 'react-textarea-autosize';
 import { SignInDialog } from './../SignInDialog/SignInDialog';
 
 type QuestionFormProp = {
@@ -29,10 +31,10 @@ export function QuestionForm({ handleSendQuestion, user }: QuestionFormProp) {
 
   return (
     <FormContainer onSubmit={handleOnSubmit}>
-      <TextareaAutosize
-        placeholder="O que você quer perguntar?"
-        onChange={(event) => setNewQuestion(event.target.value)}
+      <ReactQuill
         value={newQuestion}
+        placeholder="O que você quer perguntar?"
+        onChange={(value) => setNewQuestion(value)}
       />
       <SignInDialog isOpen={showDialog} setIsOpen={setShowDialog} />
       <div className="form-footer">
