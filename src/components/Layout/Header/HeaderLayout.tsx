@@ -1,11 +1,14 @@
+import { Menu, Transition } from '@headlessui/react';
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-
-import { Button } from './../../Button/Button';
-import { RoomCode } from './../../RoomCode/RoomCode';
-import { HeaderContainer } from './style';
-
 import logoImg from '../../../assets/images/logo.svg';
+import {
+  ChevronDownIcon,
+  LogoutIcon,
+  CopyIcon,
+  LockIcon,
+} from './../../Icon/Icon';
+import { HeaderContainer, UserMenu } from './style';
 
 type HeaderProps = {
   user: any;
@@ -27,6 +30,11 @@ export function HeaderLayout({
     await signOut();
     history.go(0);
   }
+
+  function copyRoomCodeToClipboard() {
+    navigator.clipboard.writeText(roomId ? roomId : '');
+  }
+
   return (
     <HeaderContainer>
       <div className="content">
@@ -34,16 +42,47 @@ export function HeaderLayout({
           <img src={logoImg} alt="Letmeask" />
         </Link>
         <div>
-          {roomId && <RoomCode code={roomId} />}
-          {roomId && isOwner && (
-            <Button isOutlined onClick={handleEndRoom}>
-              Encerrar sala
-            </Button>
-          )}
           {user && (
-            <Button isOutlined onClick={handleSignOut}>
-              Logout
-            </Button>
+            <UserMenu>
+              <Menu>
+                <div>
+                  <Menu.Button className="button">
+                    {user?.name} <ChevronDownIcon />
+                  </Menu.Button>
+                </div>
+                <Transition
+                  enterFrom="animation-out"
+                  enterTo="animation-in"
+                  leave="animation-out">
+                  <Menu.Items className="dropdown">
+                    {roomId && isOwner && (
+                      <Menu.Item>
+                        <button onClick={handleEndRoom}>
+                          <LockIcon />
+                          Encerrar sala
+                        </button>
+                      </Menu.Item>
+                    )}
+                    {roomId && (
+                      <Menu.Item>
+                        <button onClick={copyRoomCodeToClipboard}>
+                          <CopyIcon />
+                          Copiar código
+                        </button>
+                      </Menu.Item>
+                    )}
+                    {user && (
+                      <Menu.Item>
+                        <button onClick={handleSignOut}>
+                          <LogoutIcon />
+                          Logout
+                        </button>
+                      </Menu.Item>
+                    )}
+                  </Menu.Items>
+                </Transition>
+              </Menu>
+            </UserMenu>
           )}
         </div>
       </div>
