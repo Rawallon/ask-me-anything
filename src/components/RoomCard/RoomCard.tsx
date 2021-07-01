@@ -32,7 +32,7 @@ export function RoomCard({ room }: RoomItemProps) {
       isEnded={room?.endedAt ? true : false}
       onClick={handleJoinRoom}>
       <div className="user-info">
-        Criado por{` `}
+        Criado por&nbsp;
         <span>{room.author.name}</span>
       </div>
       <div className="post-info">

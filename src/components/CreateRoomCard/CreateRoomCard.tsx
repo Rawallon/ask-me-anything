@@ -72,6 +72,7 @@ export function CreateRoomCard({ user, createRoom }: RoomItemProps) {
           value={roomDescription}
           placeholder="Descrição (opcional)"
           onChange={(value) => setRoomDescription(value)}
+          className="quill-create-post"
         />
         <Button onClick={handleCreateRoom}>Postar</Button>
       </div>

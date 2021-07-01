@@ -1,29 +1,27 @@
 import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import answerImg from '../assets/images/answer.svg';
 import checkImg from '../assets/images/check.svg';
 
-import { Question } from '../components/Question/Question';
 import { useAuth } from '../hooks/useAuth';
 import { useRoom } from '../hooks/useRoom';
 import { database } from '../services/firebase';
-import { HeaderLayout } from './../components/Layout/Header/HeaderLayout';
-import { RoomPost } from './../components/RoomPost/RoomPost';
-import { Container } from './../components/Layout/Container/Container';
 
-import { QuestionForm } from './../components/QuestionForm/QuestionForm';
-import { SignInDialog } from './../components/SignInDialog/SignInDialog';
-import { LikeIcon, WarningIcon } from './../components/Icon/Icon';
 import { AlertCard } from '../components/AlertCard/AlertCard';
+import { Question } from '../components/Question/Question';
+import { LikeIcon, WarningIcon } from './../components/Icon/Icon';
+import { Container } from './../components/Layout/Container/Container';
+import { HeaderLayout } from './../components/Layout/Header/HeaderLayout';
+import { QuestionForm } from './../components/QuestionForm/QuestionForm';
+import { RoomPost } from './../components/RoomPost/RoomPost';
+import { SignInDialog } from './../components/SignInDialog/SignInDialog';
 
 type RoomParams = {
   id: string;
 };
 
 export function Room() {
-  const history = useHistory();
-
   const { user, signOut } = useAuth();
   const params = useParams<RoomParams>();
   const [isOwner, setIsOwner] = useState(false);
@@ -44,13 +42,13 @@ export function Room() {
 
   async function handleSendQuestion(questionText: string) {
     if (!user) {
-      throw new Error('You must be logged in');
+      console.error('You must be logged in');
     }
     const question = {
       content: questionText,
       author: {
-        name: user.name,
-        avatar: user.avatar,
+        name: user?.name,
+        avatar: user?.avatar,
       },
       isHighlighted: false,
       isAnswered: false,
@@ -78,8 +76,6 @@ export function Room() {
     await database.ref(`rooms/${roomId}`).update({
       endedAt: new Date(),
     });
-
-    history.push('/');
   }
 
   async function handleCheckQuestionAsAnswered(
@@ -171,6 +167,7 @@ export function Room() {
         {!isOwner && !isEnded && (
           <QuestionForm handleSendQuestion={handleSendQuestion} user={user} />
         )}
+
         {isEnded && (
           <AlertCard type="warning">
             <WarningIcon /> Essa sala foi encerrada

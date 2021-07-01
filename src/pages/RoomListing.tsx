@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { RoomCard } from '../components/RoomCard/RoomCard';
 import { useAuth } from '../hooks/useAuth';
 import { database } from '../services/firebase';
+
+import { RoomCard } from '../components/RoomCard/RoomCard';
 import { CreateRoomCard } from './../components/CreateRoomCard/CreateRoomCard';
 import { Container } from './../components/Layout/Container/Container';
 import { HeaderLayout } from './../components/Layout/Header/HeaderLayout';
 
-type FirebaseQuestions = Record<
+type FirebaseReturn = Record<
   string,
   {
     title: string;
@@ -19,6 +20,7 @@ type FirebaseQuestions = Record<
       avatar: string;
     };
     endedAt: string | null;
+    questions: any[];
   }
 >;
 
@@ -42,24 +44,31 @@ export function RoomListing() {
     try {
       database.ref('rooms').on('value', function (snapshot) {
         const databaseRooms = snapshot.val();
-        const firebaseQuestions: FirebaseQuestions = databaseRooms ?? {};
-
-        const parsedQuestions = Object.entries(firebaseQuestions).map(
-          ([key, value]) => ({
-            id: key,
-            title: value.title,
-            description: value.description,
-            author: value.author,
-            endedAt: value.endedAt,
-          }),
+        const mappedRooms = Object.entries(
+          (databaseRooms as FirebaseReturn) ?? {},
+        ).map(([key, value]) => ({
+          id: key,
+          title: value.title,
+          description: value.description,
+          author: value.author,
+          endedAt: value.endedAt,
+          questionNum: Object.keys(value.questions || {}).length,
+        }));
+        // Ended rooms go to bottom, then sorts by number of comments
+        setRooms(
+          mappedRooms.sort((a, b) =>
+            Number(!!b.endedAt) > Number(!!a.endedAt)
+              ? -1
+              : a.questionNum < b.questionNum
+              ? 0
+              : -1,
+          ),
         );
-
-        setRooms(parsedQuestions);
       });
     } catch {
-      console.error('Ocorreu um erro ao carregar suas salas');
+      console.error('Ocorreu um erro ao carregar as salas');
     }
-  }, [user?.id]);
+  }, []);
 
   async function handleCreateRoom(title: string, description: string) {
     if (title.trim() === '') {

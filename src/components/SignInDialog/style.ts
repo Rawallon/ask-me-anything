@@ -12,6 +12,7 @@ export const DialogContainer = styled.div`
   header {
     position: relative;
     > button {
+      cursor: pointer;
       position: absolute;
       top: 0;
       right: 0;
