@@ -1,6 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import React, { useRef } from 'react';
 
+import logoImg from '../../assets/images/logo-dark.svg';
 import { useAuth } from './../../hooks/useAuth';
 import googleIconImg from '../../assets/images/google-icon.svg';
 import { DialogContainer, GoogleSignButton } from './style';
@@ -35,6 +36,7 @@ export function SignInDialog({ isOpen, setIsOpen }: SignInDialogProps) {
         className="modal">
         <DialogContainer>
           <Dialog.Overlay className="overlay" />
+          <img src={logoImg} alt="Letmeask" />
           <Dialog.Title as="h1">Entrar</Dialog.Title>
           <Dialog.Description as="div" className="separator">
             Para continuar você precisa ter uma conta

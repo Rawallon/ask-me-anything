@@ -1,7 +1,8 @@
 import { Menu, Transition } from '@headlessui/react';
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import logoImg from '../../../assets/images/logo.svg';
+
+import logoImg from '../../../assets/images/logo-dark.svg';
 import {
   ChevronDownIcon,
   LogoutIcon,
