@@ -62,18 +62,6 @@ export const UserMenu = styled.div`
     }
   }
 
-  .animation-in {
-    transition: all 0.1s ease-out;
-    opacity: 100;
-    transform: scale(1);
-  }
-
-  .animation-out {
-    transition: all 0.1s ease-out;
-    opacity: 0;
-    transform: scale(0.9);
-  }
-
   .dropdown {
     margin-top: 0.25rem;
     border-radius: 8px;
