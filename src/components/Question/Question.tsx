@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
 import cx from 'classnames';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.bubble.css';
 
 import { QuestionCard } from './style';
 
@@ -28,7 +30,12 @@ export function Question({
         { answered: isAnswered },
         { highlighted: isHighlighted && !isAnswered },
       )}>
-      <p>{content}</p>
+      <ReactQuill
+        value={content}
+        readOnly={true}
+        theme={'bubble'}
+        className="quill-description"
+      />
       <footer>
         <div className="user-info">
           <img src={author.avatar} alt={author.name} />
