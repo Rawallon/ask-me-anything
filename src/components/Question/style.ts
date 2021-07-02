@@ -24,6 +24,10 @@ export const QuestionCard = styled.div`
 
   p {
     color: #29292e;
+    &.deleted {
+      font-size: 0.875rem;
+      color: #737380;
+    }
   }
 
   footer {
