@@ -56,11 +56,14 @@ export function Room() {
     const question = {
       content: questionText,
       author: {
+        id: user?.id,
         name: user?.name,
         avatar: user?.avatar,
       },
       isHighlighted: false,
       isAnswered: false,
+      isUserDeleted: false,
+      isAdminDeleted: false,
     };
     await database.ref(`rooms/${roomId}/questions`).push(question);
   }
