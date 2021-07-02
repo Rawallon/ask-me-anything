@@ -54,3 +54,13 @@ textarea {
   opacity: 0;
   transform: scale(0.9);
 }
+
+.overlay-in {
+  transition: all 0.1s ease-out;
+  opacity: 100;
+}
+
+.overlay-out {
+  transition: all 0.1s ease-out;
+  opacity: 0;
+}
