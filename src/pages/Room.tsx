@@ -22,6 +22,7 @@ import { QuestionForm } from './../components/QuestionForm/QuestionForm';
 import { RoomPost } from './../components/RoomPost/RoomPost';
 import { SignInDialog } from './../components/SignInDialog/SignInDialog';
 import ConfirmModal from '../components/ConfirmModal/ConfirmModal';
+import Loader from './../components/Loader/Loader';
 
 type RoomParams = {
   id: string;
@@ -227,46 +228,53 @@ export function Room() {
         isEnded={isEnded}
       />
       <main>
-        <RoomPost author={author} description={description} title={title} />
-
+        <RoomPost
+          author={author}
+          description={description}
+          title={title}
+          isLoading={isLoading}
+        />
         {!isOwner && !isEnded && (
           <QuestionForm handleSendQuestion={handleSendQuestion} user={user} />
         )}
-
         {isEnded && (
           <AlertCard type="warning">
             <WarningIcon /> Essa sala foi encerrada
           </AlertCard>
         )}
-        <div className="question-list">
-          {questions.length < 1 && (
-            <div className="empty-listing">
-              <img src={emptyQuestionsImg} alt="Não há perguntas enviadas" />
-              <h2>Nenhuma pergunta por aqui...</h2>
-              {!isOwner && (
-                <p>
-                  {!user
-                    ? 'Faça o seu login e seja a primeira pessoa a fazer uma pergunta!'
-                    : 'Seja a primeira pessoa a fazer uma pergunta'}
-                </p>
-              )}
-            </div>
-          )}
-          {questions.map((question) => {
-            return (
-              <Question
-                key={question.id}
-                content={question.content}
-                author={question.author}
-                isAnswered={question.isAnswered}
-                isHighlighted={question.isHighlighted}
-                isAdminDeleted={question.isAdminDeleted}
-                isUserDeleted={question.isUserDeleted}>
-                {!isEnded && renderQuestionCardButtons(question)}
-              </Question>
-            );
-          })}
-        </div>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <div className="question-list">
+            {questions.length < 1 && (
+              <div className="empty-listing">
+                <img src={emptyQuestionsImg} alt="Não há perguntas enviadas" />
+                <h2>Nenhuma pergunta por aqui...</h2>
+                {!isOwner && (
+                  <p>
+                    {!user
+                      ? 'Faça o seu login e seja a primeira pessoa a fazer uma pergunta!'
+                      : 'Seja a primeira pessoa a fazer uma pergunta'}
+                  </p>
+                )}
+              </div>
+            )}
+            {questions.map((question) => {
+              return (
+                <Question
+                  key={question.id}
+                  content={question.content}
+                  author={question.author}
+                  isAnswered={question.isAnswered}
+                  isHighlighted={question.isHighlighted}
+                  isAdminDeleted={question.isAdminDeleted}
+                  isUserDeleted={question.isUserDeleted}>
+                  {!isEnded && renderQuestionCardButtons(question)}
+                </Question>
+              );
+            })}
+          </div>
+        )}
       </main>
     </Container>
   );

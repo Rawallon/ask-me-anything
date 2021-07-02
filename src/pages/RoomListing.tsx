@@ -10,6 +10,7 @@ import { RoomCard } from '../components/RoomCard/RoomCard';
 import { CreateRoomCard } from './../components/CreateRoomCard/CreateRoomCard';
 import { Container } from './../components/Layout/Container/Container';
 import { HeaderLayout } from './../components/Layout/Header/HeaderLayout';
+import Loader from '../components/Loader/Loader';
 
 type FirebaseReturn = Record<
   string,
@@ -40,6 +41,7 @@ type RoomType = {
 
 export function RoomListing() {
   const history = useHistory();
+  const [isLoading, setIsLoading] = useState(true);
   const [rooms, setRooms] = useState<RoomType[]>([]);
   const { user, signOut } = useAuth();
   useEffect(() => {
@@ -66,6 +68,7 @@ export function RoomListing() {
               : -1,
           ),
         );
+        setIsLoading(false);
       });
     } catch {
       console.error('Ocorreu um erro ao carregar as salas');
@@ -87,25 +90,30 @@ export function RoomListing() {
 
     history.push(`/rooms/${firebaseRoom.key}`);
   }
-
   return (
     <Container>
       <HeaderLayout user={user} signOut={signOut} />
 
       <main>
-        <CreateRoomCard user={user} createRoom={handleCreateRoom} />
-        {rooms?.length <= 0 ? (
-          <div className="empty-listing">
-            <img src={emptyQuestionsImg} alt="Não há nenhuma sala criada" />
-            <h2>Não existe nenhuma sala até o momento.</h2>
-            <p>
-              {!user
-                ? 'Faça o seu login e seja a primeira pessoa a criar uma sala!'
-                : 'Seja a primeira pessoa a criar uma sala!'}
-            </p>
-          </div>
+        {isLoading ? (
+          <Loader />
         ) : (
-          rooms?.map((room) => <RoomCard key={room.id} room={room} />)
+          <>
+            <CreateRoomCard user={user} createRoom={handleCreateRoom} />
+            {rooms?.length <= 0 ? (
+              <div className="empty-listing">
+                <img src={emptyQuestionsImg} alt="Não há nenhuma sala criada" />
+                <h2>Não existe nenhuma sala até o momento.</h2>
+                <p>
+                  {!user
+                    ? 'Faça o seu login e seja a primeira pessoa a criar uma sala!'
+                    : 'Seja a primeira pessoa a criar uma sala!'}
+                </p>
+              </div>
+            ) : (
+              rooms?.map((room) => <RoomCard key={room.id} room={room} />)
+            )}
+          </>
         )}
       </main>
     </Container>
