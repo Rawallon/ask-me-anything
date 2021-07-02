@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
-import answerImg from '../assets/images/answer.svg';
-import checkImg from '../assets/images/check.svg';
 import emptyQuestionsImg from '../assets/images/empty-questions.svg';
 
 import { useAuth } from '../hooks/useAuth';
@@ -11,7 +9,12 @@ import { database } from '../services/firebase';
 
 import { AlertCard } from '../components/AlertCard/AlertCard';
 import { Question } from '../components/Question/Question';
-import { LikeIcon, WarningIcon } from './../components/Icon/Icon';
+import {
+  LikeIcon,
+  WarningIcon,
+  AnswerIcon,
+  CheckIcon,
+} from './../components/Icon/Icon';
 import { Container } from './../components/Layout/Container/Container';
 import { HeaderLayout } from './../components/Layout/Header/HeaderLayout';
 import { QuestionForm } from './../components/QuestionForm/QuestionForm';
@@ -111,14 +114,14 @@ export function Room() {
             onClick={() =>
               handleCheckQuestionAsAnswered(question.id, question.isAnswered)
             }>
-            <img src={checkImg} alt="Marcar pergunta como respondida" />
+            <CheckIcon />
           </button>
           <button
             type="button"
             onClick={() =>
               handleHighlightQuestion(question.id, question.isHighlighted)
             }>
-            <img src={answerImg} alt="Dar destaque à pergunta" />
+            <AnswerIcon />
           </button>
           <button
             className={`like-button ${question.likeId ? 'liked' : ''}`}
