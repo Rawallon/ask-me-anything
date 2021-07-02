@@ -14,12 +14,14 @@ import {
   WarningIcon,
   AnswerIcon,
   CheckIcon,
+  DeleteIcon,
 } from './../components/Icon/Icon';
 import { Container } from './../components/Layout/Container/Container';
 import { HeaderLayout } from './../components/Layout/Header/HeaderLayout';
 import { QuestionForm } from './../components/QuestionForm/QuestionForm';
 import { RoomPost } from './../components/RoomPost/RoomPost';
 import { SignInDialog } from './../components/SignInDialog/SignInDialog';
+import ConfirmModal from '../components/ConfirmModal/ConfirmModal';
 
 type RoomParams = {
   id: string;
@@ -31,6 +33,8 @@ export function Room() {
   const params = useParams<RoomParams>();
   const [isOwner, setIsOwner] = useState(false);
   const [showSignInModal, setShowSignInModal] = useState(false);
+  const [showDeleteUserModal, setShowDeleteUserModal] = useState(false);
+  const [showDeleteAdminModal, setShowDeleteAdminModal] = useState(false);
   const roomId = params.id;
 
   const { isLoading, title, description, author, questions, isEnded } =
@@ -68,22 +72,7 @@ export function Room() {
     await database.ref(`rooms/${roomId}/questions`).push(question);
   }
 
-  async function handleLikeQuestion(
-    questionId: string,
-    likeId: string | undefined,
-  ) {
-    if (likeId) {
-      await database
-        .ref(`rooms/${roomId}/questions/${questionId}/likes/${likeId}`)
-        .remove();
-    } else {
-      await database.ref(`rooms/${roomId}/questions/${questionId}/likes`).push({
-        authorId: user?.id,
-      });
-    }
-  }
-
-  // Admin Commands
+  // Admin Actions
   async function handleEndRoom() {
     await database.ref(`rooms/${roomId}`).update({
       endedAt: new Date(),
@@ -108,10 +97,44 @@ export function Room() {
     });
   }
 
+  async function handleAdminDeleteQuestion(questionId: string) {
+    database.ref(`rooms/${roomId}/questions/${questionId}`).update({
+      isAdminDeleted: true,
+    });
+  }
+
+  // User action
+  async function handleLikeQuestion(
+    questionId: string,
+    likeId: string | undefined,
+  ) {
+    if (likeId) {
+      await database
+        .ref(`rooms/${roomId}/questions/${questionId}/likes/${likeId}`)
+        .remove();
+    } else {
+      await database.ref(`rooms/${roomId}/questions/${questionId}/likes`).push({
+        authorId: user?.id,
+      });
+    }
+  }
+
+  async function handleUserDeleteQuestion(questionId: string) {
+    database.ref(`rooms/${roomId}/questions/${questionId}`).update({
+      isUserDeleted: true,
+    });
+  }
+
   function renderQuestionCardButtons(question: any) {
     if (isOwner) {
       return (
         <>
+          <button
+            type="button"
+            aria-label="Deletar a pergunta"
+            onClick={() => setShowDeleteAdminModal(question.id)}>
+            <DeleteIcon />
+          </button>
           <button
             type="button"
             onClick={() =>
@@ -139,14 +162,24 @@ export function Room() {
     }
     if (user) {
       return (
-        <button
-          className={`like-button ${question.likeId ? 'liked' : ''}`}
-          type="button"
-          aria-label="Marcar como gostei"
-          onClick={() => handleLikeQuestion(question.id, question.likeId)}>
-          {question.likeCount > 0 && <span>{question.likeCount}</span>}
-          <LikeIcon />
-        </button>
+        <>
+          {user?.id === question.author.id && (
+            <button
+              type="button"
+              aria-label="Deletar a pergunta"
+              onClick={() => setShowDeleteUserModal(question.id)}>
+              <DeleteIcon />
+            </button>
+          )}
+          <button
+            className={`like-button ${question.likeId ? 'liked' : ''}`}
+            type="button"
+            aria-label="Marcar como gostei"
+            onClick={() => handleLikeQuestion(question.id, question.likeId)}>
+            {question.likeCount > 0 && <span>{question.likeCount}</span>}
+            <LikeIcon />
+          </button>
+        </>
       );
     } else {
       return (
@@ -163,6 +196,26 @@ export function Room() {
   }
   return (
     <Container>
+      <ConfirmModal
+        isOpen={!!showDeleteAdminModal}
+        setIsOpen={setShowDeleteAdminModal}
+        confirmAction={handleAdminDeleteQuestion}
+        confirmProp={showDeleteAdminModal}
+        textTitle="Deletar pergunta"
+        textContent="Tem certeza que você deseja deletar a pergunta?"
+        textCancel="Cancelar"
+        textConfirm="Sim, deletar"
+      />
+      <ConfirmModal
+        isOpen={!!showDeleteUserModal}
+        setIsOpen={setShowDeleteUserModal}
+        confirmAction={handleUserDeleteQuestion}
+        confirmProp={showDeleteUserModal}
+        textTitle="Deletar pergunta"
+        textContent="Tem certeza que você deseja deletar a sua pergunta?"
+        textCancel="Cancelar"
+        textConfirm="Sim, deletar"
+      />
       <SignInDialog isOpen={showSignInModal} setIsOpen={setShowSignInModal} />
 
       <HeaderLayout
@@ -206,7 +259,9 @@ export function Room() {
                 content={question.content}
                 author={question.author}
                 isAnswered={question.isAnswered}
-                isHighlighted={question.isHighlighted}>
+                isHighlighted={question.isHighlighted}
+                isAdminDeleted={question.isAdminDeleted}
+                isUserDeleted={question.isUserDeleted}>
                 {!isEnded && renderQuestionCardButtons(question)}
               </Question>
             );
