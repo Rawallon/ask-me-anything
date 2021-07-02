@@ -8,6 +8,7 @@ export const DialogContainer = styled.div`
   padding: 2rem;
   border-radius: 8px;
   background: #fff;
+  z-index: 10;
 
   header {
     position: relative;
@@ -39,15 +40,6 @@ export const DialogContainer = styled.div`
     font-size: 24px;
     color: #29292e;
     margin-bottom: 2rem;
-  }
-  .overlay {
-    background: rgba(0, 0, 0, 0.3);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
   }
 
   .separator {
@@ -90,4 +82,14 @@ export const GoogleSignButton = styled.button`
   border: 0;
   transition: filter 0.2s;
   padding: 0.75rem 1.7rem;
+`
+
+export const DialogOverlay = styled.div`
+  background: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
 `

@@ -28,6 +28,21 @@ textarea {
   z-index: 10;
 }
 
+.question-list {
+  margin-bottom: 2rem;
+}
+
+.empty-listing {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  margin: 4rem 0;
+  h2 {
+    margin: 1rem 0 0.25rem 0;
+  }
+}
+
 .animation-in {
   transition: all 0.1s ease-out;
   opacity: 100;
@@ -38,4 +53,14 @@ textarea {
   transition: all 0.1s ease-out;
   opacity: 0;
   transform: scale(0.9);
+}
+
+.overlay-in {
+  transition: all 0.1s ease-out;
+  opacity: 100;
+}
+
+.overlay-out {
+  transition: all 0.1s ease-out;
+  opacity: 0;
 }

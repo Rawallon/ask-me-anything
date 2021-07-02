@@ -1,17 +1,17 @@
 {
   "rules": {
     "rooms": {
-      ".read": false,
+      ".read": true,
       ".write": "auth != null",
       "$roomId": {
         ".read": true,
-        ".write": "auth != null && (!data.exists() || data.child('authorId').val() == auth.id)",
+        ".write": "auth != null && (!data.exists() || data.child('author').child('id').val() == auth.id)",
         "questions": {
           ".read": true,
-          ".write": "auth != null && (!data.exists() || data.parent().child('authorId').val() == auth.id)",
+          ".write": "auth != null && (!data.exists() || data.parent().child('author').child('id').val() == auth.id)",
           "likes": {
             ".read": true,
-            ".write": "auth != null && (!data.exists() || data.child('authorId').val() == auth.id)"
+            ".write": "auth != null && (!data.exists() || data.child('author').child('id').val() == auth.id || data.parent().child('author').child('id').val() == auth.id)"
           }
         }
       }

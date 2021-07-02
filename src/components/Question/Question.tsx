@@ -3,6 +3,8 @@ import cx from 'classnames';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.bubble.css';
 
+import anonAvatar from '../../assets/images/anon.svg';
+
 import { QuestionCard } from './style';
 
 type QuestionProps = {
@@ -14,6 +16,8 @@ type QuestionProps = {
   children?: ReactNode;
   isAnswered?: boolean;
   isHighlighted?: boolean;
+  isAdminDeleted?: boolean;
+  isUserDeleted?: boolean;
 };
 
 export function Question({
@@ -21,6 +25,8 @@ export function Question({
   author,
   isAnswered = false,
   isHighlighted = false,
+  isAdminDeleted = false,
+  isUserDeleted = false,
   children,
 }: QuestionProps) {
   return (
@@ -30,19 +36,36 @@ export function Question({
         { answered: isAnswered },
         { highlighted: isHighlighted && !isAnswered },
       )}>
-      <ReactQuill
-        value={content}
-        readOnly={true}
-        theme={'bubble'}
-        className="quill-description"
-      />
-      <footer>
-        <div className="user-info">
-          <img src={author.avatar} alt={author.name} />
-          <span>{author.name}</span>
-        </div>
-        <div>{children}</div>
-      </footer>
+      {isAdminDeleted || isUserDeleted ? (
+        <p className="deleted">
+          [
+          {isAdminDeleted ? 'removido pela moderação' : 'removido pelo usuário'}
+          ]
+        </p>
+      ) : (
+        <ReactQuill
+          value={content}
+          readOnly={true}
+          theme={'bubble'}
+          className="quill-description"
+        />
+      )}
+      {isAdminDeleted || isUserDeleted ? (
+        <footer>
+          <div className="user-info">
+            <img src={anonAvatar} alt="Anonymous" />
+            <span>[removido]</span>
+          </div>
+        </footer>
+      ) : (
+        <footer>
+          <div className="user-info">
+            <img src={author.avatar} alt={author.name} />
+            <span>{author.name}</span>
+          </div>
+          <div>{children}</div>
+        </footer>
+      )}
     </QuestionCard>
   );
 }

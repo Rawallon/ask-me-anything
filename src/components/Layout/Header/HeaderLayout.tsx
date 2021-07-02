@@ -42,7 +42,7 @@ export function HeaderLayout({
     <HeaderContainer>
       <div className="content">
         <Link to="/">
-          <img src={logoImg} alt="Letmeask" />
+          <img src={logoImg} alt="Ask Me Anything Logo" />
         </Link>
         <div>
           {user && (

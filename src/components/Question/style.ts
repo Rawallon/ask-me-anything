@@ -5,8 +5,7 @@ export const QuestionCard = styled.div`
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   padding: 24px;
-
-  & + .question {
+  & + & {
     margin-top: 8px;
   }
 
@@ -25,6 +24,10 @@ export const QuestionCard = styled.div`
 
   p {
     color: #29292e;
+    &.deleted {
+      font-size: 0.875rem;
+      color: #737380;
+    }
   }
 
   footer {
