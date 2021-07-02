@@ -90,12 +90,12 @@ export function useRoom (roomId: string): useRoomReturnType {
           }
         }
       )
-      setIsLoading(false)
       setTitle(databaseRoom.title)
       setDescription(databaseRoom.description)
       setAuthor(databaseRoom.author)
       setQuestions(parsedQuestions)
       setIsEnded(databaseRoom.endedAt ? true : false)
+      setIsLoading(false)
     })
 
     return () => {
