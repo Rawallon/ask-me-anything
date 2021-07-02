@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
+import emptyQuestionsImg from '../assets/images/empty-questions.svg';
+
 import { useAuth } from '../hooks/useAuth';
 import { database } from '../services/firebase';
 
@@ -93,7 +95,15 @@ export function RoomListing() {
       <main>
         <CreateRoomCard user={user} createRoom={handleCreateRoom} />
         {rooms?.length <= 0 ? (
-          <p>Não existe nenhuma sala até o momento.</p>
+          <div className="empty-listing">
+            <img src={emptyQuestionsImg} alt="Não há nenhuma sala criada" />
+            <h2>Não existe nenhuma sala até o momento.</h2>
+            <p>
+              {!user
+                ? 'Faça o seu login e seja a primeira pessoa a criar uma sala!'
+                : 'Seja a primeira pessoa a criar uma sala!'}
+            </p>
+          </div>
         ) : (
           rooms?.map((room) => <RoomCard key={room.id} room={room} />)
         )}

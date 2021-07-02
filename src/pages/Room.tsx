@@ -3,6 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 
 import answerImg from '../assets/images/answer.svg';
 import checkImg from '../assets/images/check.svg';
+import emptyQuestionsImg from '../assets/images/empty-questions.svg';
 
 import { useAuth } from '../hooks/useAuth';
 import { useRoom } from '../hooks/useRoom';
@@ -179,6 +180,19 @@ export function Room() {
           </AlertCard>
         )}
         <div className="question-list">
+          {questions.length < 1 && (
+            <div className="empty-listing">
+              <img src={emptyQuestionsImg} alt="Não há perguntas enviadas" />
+              <h2>Nenhuma pergunta por aqui...</h2>
+              {!isOwner && (
+                <p>
+                  {!user
+                    ? 'Faça o seu login e seja a primeira pessoa a fazer uma pergunta!'
+                    : 'Seja a primeira pessoa a fazer uma pergunta'}
+                </p>
+              )}
+            </div>
+          )}
           {questions.map((question) => {
             return (
               <Question

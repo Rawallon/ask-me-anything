@@ -28,6 +28,17 @@ textarea {
   z-index: 10;
 }
 
+.empty-listing {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  margin: 4rem 0;
+  h2 {
+    margin: 1rem 0 0.25rem 0;
+  }
+}
+
 .animation-in {
   transition: all 0.1s ease-out;
   opacity: 100;
