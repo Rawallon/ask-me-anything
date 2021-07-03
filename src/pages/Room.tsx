@@ -22,39 +22,67 @@ import { QuestionForm } from './../components/QuestionForm/QuestionForm';
 import { RoomPost } from './../components/RoomPost/RoomPost';
 import { SignInDialog } from './../components/SignInDialog/SignInDialog';
 import ConfirmModal from '../components/ConfirmModal/ConfirmModal';
-import Loader from './../components/Loader/Loader';
 import { RoomPostSkeleton } from '../components/LoadingSkeleton/RoomPostSkeleton/RoomPostSkeleton';
 import { QuestionSkeleton } from './../components/LoadingSkeleton/QuestionSkeleton/QuestionSkeleton';
+import { useRooms } from '../hooks/useRooms';
 
 type RoomParams = {
   id: string;
 };
 
+type QuestionType = {
+  id: string;
+  author: {
+    name: string;
+    avatar: string;
+  };
+  content: string;
+  isAnswered: boolean;
+  isHighlighted: boolean;
+  isUserDeleted: boolean;
+  isAdminDeleted: boolean;
+  likeCount: number;
+  likeId: string | undefined;
+};
+
 export function Room() {
   const history = useHistory();
-  const { user, signOut } = useAuth();
   const params = useParams<RoomParams>();
+  const roomId = params.id;
+  const { user, signOut } = useAuth();
+
   const [isOwner, setIsOwner] = useState(false);
+  const [questions, setQuestions] = useState([] as QuestionType[]);
+
   const [showSignInModal, setShowSignInModal] = useState(false);
   const [showDeleteUserModal, setShowDeleteUserModal] = useState(false);
   const [showDeleteAdminModal, setShowDeleteAdminModal] = useState(false);
-  const roomId = params.id;
 
-  const { isLoading, title, description, author, questions, isEnded } =
-    useRoom(roomId);
+  const { isLoading, title, description, author, isEnded } = useRoom(roomId);
+  const { handleLoadQuestions, isLoadingQuestions } = useRooms();
 
   useEffect(() => {
+    if (questions.length <= 0) {
+      setQuestions(handleLoadQuestions(roomId));
+    }
     if (!isLoading) {
-      if (!author.id) history.push('/');
       if (author.id === user?.id) {
         setIsOwner(true);
       }
+      if (title === '') {
+        history.push('/');
+      }
     }
-
-    return () => {
-      setIsOwner(false);
-    };
-  }, [author.id, history, isLoading, user?.id]);
+  }, [
+    author.id,
+    handleLoadQuestions,
+    history,
+    isLoading,
+    questions.length,
+    roomId,
+    title,
+    user?.id,
+  ]);
 
   async function handleSendQuestion(questionText: string) {
     if (!user) {
@@ -243,7 +271,7 @@ export function Room() {
             <WarningIcon /> Essa sala foi encerrada
           </AlertCard>
         )}
-        {isLoading ? (
+        {isLoadingQuestions ? (
           <>
             <QuestionSkeleton />
             <QuestionSkeleton />
@@ -264,7 +292,7 @@ export function Room() {
               </div>
             )}
             <>
-              {questions.map((question) => {
+              {questions.map((question: QuestionType) => {
                 return (
                   <Question
                     key={question.id}
