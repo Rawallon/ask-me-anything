@@ -1,7 +1,3 @@
-import React from 'react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.bubble.css';
-
 import { RoomPostCard } from './style';
 import { Shimmer } from './../Shimmer/Shimmer';
 

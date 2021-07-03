@@ -1,10 +1,3 @@
-import { ReactNode } from 'react';
-import cx from 'classnames';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.bubble.css';
-
-import anonAvatar from '../../assets/images/anon.svg';
-
 import { QuestionCard } from './style';
 import { Shimmer } from './../Shimmer/Shimmer';
 
