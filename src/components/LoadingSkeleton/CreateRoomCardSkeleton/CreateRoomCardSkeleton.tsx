@@ -1,4 +1,5 @@
 import { CreateRoomCardContainer } from './style';
+import { Shimmer } from './../Shimmer/Shimmer';
 
 export function CreateRoomCardSkeleton() {
   return (
@@ -7,6 +8,7 @@ export function CreateRoomCardSkeleton() {
         <div className="user-image"></div>
         <div className="fake-input"></div>
       </div>
+      <Shimmer />
     </CreateRoomCardContainer>
   );
 }
