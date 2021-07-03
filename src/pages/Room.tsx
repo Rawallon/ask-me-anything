@@ -23,6 +23,8 @@ import { RoomPost } from './../components/RoomPost/RoomPost';
 import { SignInDialog } from './../components/SignInDialog/SignInDialog';
 import ConfirmModal from '../components/ConfirmModal/ConfirmModal';
 import Loader from './../components/Loader/Loader';
+import { RoomPostSkeleton } from '../components/LoadingSkeleton/RoomPostSkeleton/RoomPostSkeleton';
+import { QuestionSkeleton } from './../components/LoadingSkeleton/QuestionSkeleton/QuestionSkeleton';
 
 type RoomParams = {
   id: string;
@@ -228,13 +230,12 @@ export function Room() {
         isEnded={isEnded}
       />
       <main>
-        <RoomPost
-          author={author}
-          description={description}
-          title={title}
-          isLoading={isLoading}
-        />
-        {!isOwner && !isEnded && (
+        {isLoading ? (
+          <RoomPostSkeleton />
+        ) : (
+          <RoomPost author={author} description={description} title={title} />
+        )}
+        {user && !isOwner && !isEnded && !isLoading && (
           <QuestionForm handleSendQuestion={handleSendQuestion} user={user} />
         )}
         {isEnded && (
@@ -243,7 +244,10 @@ export function Room() {
           </AlertCard>
         )}
         {isLoading ? (
-          <Loader />
+          <>
+            <QuestionSkeleton />
+            <QuestionSkeleton />
+          </>
         ) : (
           <div className="question-list">
             {questions.length < 1 && (
@@ -259,20 +263,22 @@ export function Room() {
                 )}
               </div>
             )}
-            {questions.map((question) => {
-              return (
-                <Question
-                  key={question.id}
-                  content={question.content}
-                  author={question.author}
-                  isAnswered={question.isAnswered}
-                  isHighlighted={question.isHighlighted}
-                  isAdminDeleted={question.isAdminDeleted}
-                  isUserDeleted={question.isUserDeleted}>
-                  {!isEnded && renderQuestionCardButtons(question)}
-                </Question>
-              );
-            })}
+            <>
+              {questions.map((question) => {
+                return (
+                  <Question
+                    key={question.id}
+                    content={question.content}
+                    author={question.author}
+                    isAnswered={question.isAnswered}
+                    isHighlighted={question.isHighlighted}
+                    isAdminDeleted={question.isAdminDeleted}
+                    isUserDeleted={question.isUserDeleted}>
+                    {!isEnded && renderQuestionCardButtons(question)}
+                  </Question>
+                );
+              })}
+            </>
           </div>
         )}
       </main>

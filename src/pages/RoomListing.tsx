@@ -11,6 +11,8 @@ import { CreateRoomCard } from './../components/CreateRoomCard/CreateRoomCard';
 import { Container } from './../components/Layout/Container/Container';
 import { HeaderLayout } from './../components/Layout/Header/HeaderLayout';
 import Loader from '../components/Loader/Loader';
+import { RoomCardSkeleton } from './../components/LoadingSkeleton/RoomCardSkeleton/RoomCardSkeleton';
+import { CreateRoomCardSkeleton } from './../components/LoadingSkeleton/CreateRoomCardSkeleton/CreateRoomCardSkeleton';
 
 type FirebaseReturn = Record<
   string,
@@ -96,7 +98,13 @@ export function RoomListing() {
 
       <main>
         {isLoading ? (
-          <Loader />
+          <>
+            <CreateRoomCardSkeleton />
+            <RoomCardSkeleton />
+            <RoomCardSkeleton />
+            <RoomCardSkeleton />
+            <RoomCardSkeleton />
+          </>
         ) : (
           <>
             <CreateRoomCard user={user} createRoom={handleCreateRoom} />
