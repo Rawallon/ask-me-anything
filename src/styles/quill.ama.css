@@ -379,12 +379,6 @@
 .ql-editor .ql-color-purple {
   color: #93f;
 }
-.ql-editor .ql-font-serif {
-  font-family: Georgia, Times New Roman, serif;
-}
-.ql-editor .ql-font-monospace {
-  font-family: Monaco, Courier New, monospace;
-}
 .ql-editor .ql-size-small {
   font-size: 0.75em;
 }
@@ -838,12 +832,6 @@
 .ql-snow .ql-picker.ql-font .ql-picker-item[data-value='monospace']::before {
   content: 'Monospace';
 }
-.ql-snow .ql-picker.ql-font .ql-picker-item[data-value='serif']::before {
-  font-family: Georgia, Times New Roman, serif;
-}
-.ql-snow .ql-picker.ql-font .ql-picker-item[data-value='monospace']::before {
-  font-family: Monaco, Courier New, monospace;
-}
 .ql-snow .ql-picker.ql-size {
   width: 98px;
 }
@@ -879,9 +867,7 @@
   background-color: #000;
 }
 .ql-toolbar.ql-snow {
-  border: 1px solid #5bbbff;
   box-sizing: border-box;
-  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   padding: 8px;
   border-radius: 8px 8px 0 0;
 }
@@ -976,7 +962,4 @@
 }
 .ql-snow a {
   color: #06c;
-}
-.ql-container.ql-snow {
-  border: 1px solid #5bbbff;
 }

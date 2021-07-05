@@ -1,3 +1,6 @@
+import { createGlobalStyle } from 'styled-components'
+
+export default createGlobalStyle`
 * {
   margin: 0;
   padding: 0;
@@ -5,8 +8,8 @@
 }
 
 body {
-  background: #f8f8f8;
-  color: #29292e;
+  background: ${props => props.theme.colors.appBG};
+  color: ${props => props.theme.colors.text};
 }
 
 body,
@@ -15,7 +18,11 @@ button,
 textarea {
   font: 400 16px 'Roboto', sans-serif;
 }
-
+h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    color: ${props => props.theme.colors.textHeading};
+}
 .modal {
   position: fixed;
   top: 0;
@@ -64,3 +71,11 @@ textarea {
   transition: all 0.1s ease-out;
   opacity: 0;
 }
+.quill-question {
+  background: ${props => props.theme.colors.cardBG};
+  p{
+    color: ${props => props.theme.colors.textMuted};
+  }
+}
+
+`
