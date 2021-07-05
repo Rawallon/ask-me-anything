@@ -144,7 +144,7 @@ export function RoomsContextProvider(props: RoomsContextProviderProps) {
     roomRef.on('value', (questions) => {
       const roomQuestions = questions.val();
       if (!roomQuestions) {
-        setIsLoadingRooms(false);
+        setIsLoadingQuestions(false);
         return;
       }
       const parsedQuestions: QuestionType[] = Object.entries(
@@ -164,9 +164,9 @@ export function RoomsContextProvider(props: RoomsContextProviderProps) {
           )?.[0],
         };
       });
+      setIsLoadingQuestions(false);
       retQuestions = parsedQuestions;
     });
-    setIsLoadingQuestions(false);
     return retQuestions;
   }
 
