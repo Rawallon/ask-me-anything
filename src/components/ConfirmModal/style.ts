@@ -7,53 +7,40 @@ export const DialogContainer = styled.div`
   max-width: 500px;
   padding: 2rem;
   border-radius: 8px;
-  background: #fff;
+  background: ${props => props.theme.colors.cardBG};
   z-index: 10;
   header {
     > svg {
       width: 48px;
       height: 48px;
-      color: #e73f5d;
+      color: ${props => props.theme.colors.danger};
     }
   }
   h1 {
     position: relative;
-    font-family: 'Poppins', sans-serif;
-    font-size: 24px;
-    color: #29292e;
     margin-bottom: 0.75rem;
   }
-  .content{
+  .content {
     margin-bottom: 2.5rem;
-  }
-
-  .overlay {
-    background: rgba(0, 0, 0, 0.3);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
   }
 
   .button-wrapper {
     display: flex;
     align-content: center;
     justify-content: space-evenly;
-    > button{
+    > button {
       cursor: pointer;
-      border 0;
+      border: 0;
       padding: 1rem 2rem;
       border-radius: 8px;
     }
     .confirm {
-      background: #e73f5d;
-      color: #fff;
+      background: ${props => props.theme.colors.danger};
+      color: ${props => props.theme.colors.buttonText};
     }
     .cancel {
-      background: #dbdcdd;
-      color: #737380;
+      /* background: #dbdcdd; */
+      color: ${props => props.theme.colors.textDisabled};
     }
   }
 `

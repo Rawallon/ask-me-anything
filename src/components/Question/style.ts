@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const QuestionCard = styled.div`
-  background: #fefefe;
+  background: ${props => props.theme.colors.cardBG};
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   padding: 24px;
@@ -10,23 +10,24 @@ export const QuestionCard = styled.div`
   }
 
   &.highlighted {
-    background: #e5f4ff;
-    border: 1px solid #53d7ff;
+    background: ${props => props.theme.colors.highlightBG};
+    border: 1px solid ${props => props.theme.colors.brandBG};
 
     footer .user-info span {
-      color: #29292e;
+      color: ${props => props.theme.colors.text};
     }
   }
 
   &.answered {
-    background: #dbdcdd;
+    background: ${props => props.theme.colors.answered};
+    border: 1px solid ${props => props.theme.colors.answeredBorder};
   }
 
   p {
-    color: #29292e;
+    color: ${props => props.theme.colors.text};
     &.deleted {
       font-size: 0.875rem;
-      color: #737380;
+      color: ${props => props.theme.colors.textMuted};
     }
   }
 
@@ -48,7 +49,7 @@ export const QuestionCard = styled.div`
 
       span {
         margin-left: 8px;
-        color: #737380;
+        color: ${props => props.theme.colors.textMuted};
         font-size: 14px;
       }
     }
@@ -68,14 +69,14 @@ export const QuestionCard = styled.div`
       align-items: flex-end;
 
       &.like-button {
-        color: #737380;
+        color: ${props => props.theme.colors.textDeleted};
         gap: 8px;
 
         &.liked {
-          color: #53d7ff;
+          color: ${props => props.theme.colors.brandBG};
 
           svg path {
-            stroke: #53d7ff;
+            stroke: ${props => props.theme.colors.brandBG};
           }
         }
       }

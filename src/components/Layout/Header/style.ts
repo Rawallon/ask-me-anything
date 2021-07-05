@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
 export const HeaderContainer = styled.header`
-  padding: 24px;
-  border-bottom: 1px solid #e2e2e2;
+  padding: 0.75rem;
+  border: 1px solid ${props => props.theme.colors.mutedInputBorder};
 
   .content {
     max-width: 1120px;
@@ -11,17 +11,13 @@ export const HeaderContainer = styled.header`
     justify-content: space-between;
     align-items: center;
 
-    > a > img {
+    img {
       max-height: 45px;
     }
 
     > div {
       display: flex;
       gap: 16px;
-
-      button {
-        height: 40px;
-      }
     }
   }
 `
@@ -37,15 +33,24 @@ export const UserMenu = styled.div`
     align-items: center;
     justify-content: center;
 
-    background: #fff;
-    border: 1px solid #4af6ff;
-    color: #000;
     border-radius: 8px;
     font-weight: 500;
     font-size: 0.875rem;
     line-height: 1.25rem;
     padding: 0.5rem 1rem 0.5rem 1rem;
     transition: all 0.2s;
+
+    background: ${props => props.theme.colors.cardBG};
+    border: 1px solid ${props => props.theme.colors.brandBG};
+    color: ${props => props.theme.colors.link};
+    &.filled {
+      background: ${props => props.theme.colors.link};
+      border: 1px solid ${props => props.theme.colors.brandBG};
+      color: ${props => props.theme.colors.cardBG};
+      &:active {
+        background: ${props => props.theme.colors.brandBG};
+      }
+    }
 
     svg {
       width: 17px;
@@ -67,8 +72,8 @@ export const UserMenu = styled.div`
     border-radius: 8px;
     width: 100%;
     background: rgb(255, 255, 255);
-    border: 1px solid #4af6ff;
-    color: #4af6ff;
+    border: 1px solid ${props => props.theme.colors.brandBG};
+    color: ${props => props.theme.colors.brandBG};
     padding: 0.25rem;
 
     transform-origin: top right;
@@ -82,9 +87,9 @@ export const UserMenu = styled.div`
     button {
       cursor: pointer;
       text-align: left;
-      background: #fff;
+      background: ${props => props.theme.colors.cardBG};
       border: 0;
-      color: #5bbbff;
+      color: ${props => props.theme.colors.brandBG};
       border-radius: 8px;
 
       font-size: 0.875rem;
@@ -103,8 +108,12 @@ export const UserMenu = styled.div`
       }
 
       &:hover {
-        background: linear-gradient(to left, #4af6ff 0%, #4ceeff 100%);
-        color: #fff;
+        background: linear-gradient(
+          to right,
+          ${props => props.theme.colors.grad1} 0%,
+          ${props => props.theme.colors.grad2} 100%
+        );
+        color: ${props => props.theme.colors.buttonText};
       }
     }
   }

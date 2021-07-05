@@ -7,7 +7,7 @@ export const DialogContainer = styled.div`
   max-width: 500px;
   padding: 2rem;
   border-radius: 8px;
-  background: #fff;
+  background: ${props => props.theme.colors.cardBG};
   z-index: 10;
 
   header {
@@ -36,9 +36,6 @@ export const DialogContainer = styled.div`
   }
   h1 {
     position: relative;
-    font-family: 'Poppins', sans-serif;
-    font-size: 24px;
-    color: #29292e;
     margin-bottom: 2rem;
   }
 

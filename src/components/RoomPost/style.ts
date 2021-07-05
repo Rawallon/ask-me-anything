@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const RoomPostCard = styled.div`
-  background: #fefefe;
+  background: ${props => props.theme.colors.cardBG};
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   padding: 24px;
@@ -20,19 +20,17 @@ export const RoomPostCard = styled.div`
 
     span {
       margin-left: 8px;
-      color: #737380;
+      color: ${props => props.theme.colors.textMuted};
       font-size: 14px;
     }
   }
 
   .post-info {
     h1 {
-      font-family: 'Poppins', sans-serif;
-      font-size: 24px;
-      color: #29292e;
       margin-bottom: 1.5rem;
     }
     p {
+      color: ${props => props.theme.colors.textMuted};
       font-size: 16px;
       line-height: 24px;
     }

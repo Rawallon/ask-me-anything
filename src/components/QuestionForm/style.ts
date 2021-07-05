@@ -7,8 +7,8 @@ export const FormContainer = styled.form`
     border: 0;
     padding: 16px;
     border-radius: 8px;
-    background: #fefefe;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+    background: ${props => props.theme.colors.cardBG};
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
     resize: vertical;
     min-height: 130px;
   }

@@ -7,24 +7,24 @@ export const AlertContainer = styled.div`
   border-radius: 0.25rem;
 
   &.info {
-    color: rgb(8 66 152);
-    background-color: rgb(207 226 255);
-    border-color: rgb(182 212 254);
+    color: ${props => props.theme.colors.info};
+    background-color: ${props => props.theme.colors.infoBG};
+    border-color: ${props => props.theme.colors.info};
   }
   &.success {
-    color: rgb(15 81 50);
-    background-color: rgb(209 231 221);
-    border-color: rgb(186 219 204);
+    color: ${props => props.theme.colors.success};
+    background-color: ${props => props.theme.colors.successBG};
+    border-color: ${props => props.theme.colors.success};
   }
   &.danger {
-    color: rgb(132 32 41);
-    background-color: rgb(248 215 218);
-    border-color: rgb(245 194 199);
+    color: ${props => props.theme.colors.danger};
+    background-color: ${props => props.theme.colors.dangerBG};
+    border-color: ${props => props.theme.colors.danger};
   }
   &.warning {
-    color: rgb(102 77 3);
-    background-color: rgb(255 243 205);
-    border-color: rgb(255 236 181);
+    color: ${props => props.theme.colors.warning};
+    background-color: ${props => props.theme.colors.warningBG};
+    border-color: ${props => props.theme.colors.warning};
   }
   p {
     display: flex;

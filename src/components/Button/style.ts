@@ -4,8 +4,8 @@ export const ButtonContainer = styled.button`
   height: 50px;
   border-radius: 8px;
   font-weight: 500;
-  background: #53d7ff;
-  color: #fff;
+  background: ${props => props.theme.colors.brandBG};
+  color: ${props => props.theme.colors.buttonText};
   padding: 0 32px;
 
   display: flex;
@@ -22,13 +22,14 @@ export const ButtonContainer = styled.button`
   }
 
   &.outlined {
-    background: #fff;
-    border: 1px solid #5bbbff;
-    color: #5bbbff;
+    background: ${props => props.theme.colors.buttonText};
+    border: 1px solid ${props => props.theme.colors.brandBG};
+    color: ${props => props.theme.colors.brandBG};
   }
 
   &:not(:disabled):hover {
-    background: #5bbbff;
+    color: ${props => props.theme.colors.buttonText};
+    background: ${props => props.theme.colors.brandBG};
   }
 
   &:disabled {

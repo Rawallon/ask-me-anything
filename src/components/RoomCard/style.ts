@@ -4,7 +4,10 @@ interface RoomCardContainerProps {
 }
 export const RoomCardContainer = styled.div<RoomCardContainerProps>`
   cursor: pointer;
-  background: ${({ isEnded }) => (isEnded ? '#dbdcdd;' : '#fefefe;')};
+  background: ${props =>
+    props.isEnded
+      ? props.theme.colors.disabledCardBG
+      : props.theme.colors.cardBG};
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   padding: 24px;
@@ -16,23 +19,20 @@ export const RoomCardContainer = styled.div<RoomCardContainerProps>`
     display: flex;
     align-items: center;
     margin-bottom: 1rem;
-    color: #a8a8b3;
+    color: ${props => props.theme.colors.textMuted};
     font-size: 14px;
 
     span {
-      color: #737380;
+      color: ${props => props.theme.colors.text};
     }
   }
 
   .post-info {
     h1 {
-      font-family: 'Poppins', sans-serif;
-      font-size: 24px;
-      color: #29292e;
       margin-bottom: 0.75rem;
     }
     .post-description {
-      color: #737380;
+      color: ${props => props.theme.colors.textMuted};
       font-size: 16px;
       line-height: 24px;
       position: relative;
@@ -51,16 +51,13 @@ export const RoomCardContainer = styled.div<RoomCardContainerProps>`
 
       background: linear-gradient(
         180deg,
-        ${({ isEnded }) =>
-            isEnded ? 'rgba(219, 220, 221, 0);' : 'rgba(255, 255, 255, 0)'}
-          24.48%,
-        ${({ isEnded }) =>
-            isEnded ? 'rgba(219, 220, 221, 0.5);' : 'rgba(255, 255, 255, 0.5)'}
-          30.73%,
-        ${({ isEnded }) =>
-            isEnded ? 'rgba(219, 220, 221, 0.8);' : 'rgba(255, 255, 255, 0.8)'}
-          41.67%,
-        ${({ isEnded }) => (isEnded ? '#dbdcdd;' : '#fefefe')} 100%
+        ${({ isEnded, theme }) => (isEnded ? 'transparent' : 'transparent')} 20%,
+        ${({ isEnded, theme }) =>
+            isEnded ? theme.colors.disabledCardBG80 : theme.colors.cardBG80}
+          40%,
+        ${({ isEnded, theme }) =>
+            isEnded ? theme.colors.disabledCardBG : theme.colors.cardBG}
+          100%
       );
     }
   }

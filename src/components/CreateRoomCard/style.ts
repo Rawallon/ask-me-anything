@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const CreateRoomCardContainer = styled.div`
-  background: #fefefe;
+  background: ${props => props.theme.colors.cardBG};
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   padding: 1rem;
@@ -19,6 +19,13 @@ export const CreateRoomCardContainer = styled.div`
     margin-top: 1rem;
     display: flex;
     flex-direction: column;
+    > div {
+      border: 1px solid ${props => props.theme.colors.brandBG};
+      border-radius: 8px;
+      > div {
+        border: 1px solid ${props => props.theme.colors.mutedInputBorder};
+      }
+    }
   }
 
   img {
@@ -33,18 +40,18 @@ export const CreateRoomCardContainer = styled.div`
     width: 100%;
     border-radius: 8px;
 
-    background-color: #f6f7f8;
-    border: 1px solid #edeff1;
-    color: #1c1c1c;
+    background-color: ${props => props.theme.colors.mutedInput};
+    border: 1px solid ${props => props.theme.colors.mutedInputBorder};
+    color: ${props => props.theme.colors.mutedInputText};
     outline: none;
 
     &:hover {
-      border: 1px solid #5bbbff;
-      background: #fff;
+      border: 1px solid ${props => props.theme.colors.brandBG};
+      background: ${props => props.theme.colors.cardBG};
     }
     &.open {
-      border: 1px solid #5bbbff;
-      background: #fff;
+      border: 1px solid ${props => props.theme.colors.brandBG};
+      background: ${props => props.theme.colors.cardBG};
     }
   }
   button {
