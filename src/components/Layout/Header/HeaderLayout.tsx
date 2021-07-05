@@ -1,8 +1,9 @@
 import { Menu, Transition } from '@headlessui/react';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import logoImg from '../../../assets/images/logo-dark.svg';
+import { SignInDialog } from '../../SignInDialog/SignInDialog';
 import {
   ChevronDownIcon,
   LogoutIcon,
@@ -28,6 +29,7 @@ export function HeaderLayout({
   roomId,
   handleEndRoom,
 }: HeaderProps) {
+  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
   const history = useHistory();
   async function handleSignOut() {
     await signOut();
@@ -45,7 +47,7 @@ export function HeaderLayout({
           <img src={logoImg} alt="Ask Me Anything Logo" />
         </Link>
         <div>
-          {user && (
+          {user ? (
             <UserMenu>
               <Menu>
                 <div>
@@ -86,6 +88,20 @@ export function HeaderLayout({
                 </Transition>
               </Menu>
             </UserMenu>
+          ) : (
+            <>
+              <UserMenu>
+                <div
+                  className="button filled"
+                  onMouseDown={() => setIsSignInModalOpen(true)}>
+                  Sign In
+                </div>
+              </UserMenu>
+              <SignInDialog
+                isOpen={isSignInModalOpen}
+                setIsOpen={setIsSignInModalOpen}
+              />
+            </>
           )}
         </div>
       </div>
