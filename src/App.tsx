@@ -6,7 +6,6 @@ import { RoomsContextProvider } from './contexts/RoomsContext';
 import { Room } from './pages/Room';
 import { RoomListing } from './pages/RoomListing';
 import GlobalStyle from './styles/global';
-import dark from './styles/themes/dark';
 import light from './styles/themes/light';
 
 function App() {
