@@ -1,6 +1,43 @@
 import { useEffect, useState } from 'react'
+import { database } from '../services/firebase'
 import { useAuth } from './useAuth'
 import { useRooms } from './useRooms'
+
+type FirebaseQuestions = Record<
+  string,
+  {
+    author: {
+      name: string
+      avatar: string
+    }
+    content: string
+    isAnswered: boolean
+    isHighlighted: boolean
+    isUserDeleted: boolean
+    isAdminDeleted: boolean
+    likes: Record<
+      string,
+      {
+        authorId: string
+      }
+    >
+  }
+>
+
+type QuestionType = {
+  id: string
+  author: {
+    name: string
+    avatar: string
+  }
+  content: string
+  isAnswered: boolean
+  isHighlighted: boolean
+  isUserDeleted: boolean
+  isAdminDeleted: boolean
+  likeCount: number
+  likeId: any
+}
 
 type useRoomReturnType = {
   isLoading: boolean
@@ -12,10 +49,14 @@ type useRoomReturnType = {
     avatar: string
   }
   isEnded: boolean
+  isOwner: boolean
+  isLoadingQuestions: boolean
+  questions: QuestionType[]
 }
 export function useRoom (roomId: string): useRoomReturnType {
-  const { filterRoom } = useRooms()
   const { user } = useAuth()
+  const { rooms, filterRoom } = useRooms()
+  const [isOwner, setIsOwner] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
@@ -25,8 +66,11 @@ export function useRoom (roomId: string): useRoomReturnType {
     avatar: ''
   })
   const [isEnded, setIsEnded] = useState(false)
+  const [isLoadingQuestions, setIsLoadingQuestions] = useState(true)
+  const [questions, setQuestions] = useState<QuestionType[]>([])
 
   useEffect(() => {
+    if (rooms.length === 0) return
     setIsLoading(true)
     const databaseRoom = filterRoom(roomId)
     if (databaseRoom) {
@@ -34,15 +78,54 @@ export function useRoom (roomId: string): useRoomReturnType {
       setDescription(databaseRoom.description || '')
       setAuthor(databaseRoom.author)
       setIsEnded(databaseRoom.endedAt ? true : false)
+      if (user && databaseRoom.author.id === user?.id) {
+        setIsOwner(true)
+      }
       setIsLoading(false)
     }
-  }, [filterRoom, roomId, user?.id])
+  }, [filterRoom, roomId, rooms, user])
+
+  useEffect(() => {
+    const roomRef = database.ref(`rooms/${roomId}/questions`)
+
+    roomRef.on('value', room => {
+      const firebaseQuestions: FirebaseQuestions = room.val()
+      if (!firebaseQuestions) {
+        setIsLoading(false)
+        return
+      }
+      const parsedQuestions = Object.entries(firebaseQuestions).map(
+        ([key, value]) => {
+          return {
+            id: key,
+            content: value.content,
+            author: value.author,
+            isHighlighted: value.isHighlighted,
+            isAnswered: value.isAnswered,
+            isUserDeleted: value.isUserDeleted,
+            isAdminDeleted: value.isAdminDeleted,
+            likeCount: Object.values(value.likes ?? {}).length,
+            likeId: Object.entries(value.likes ?? {})
+          }
+        }
+      )
+      setQuestions(parsedQuestions)
+      setIsLoadingQuestions(false)
+    })
+
+    return () => {
+      roomRef.off('value')
+    }
+  }, [roomId])
 
   return {
     isLoading,
     title,
     description,
     author,
-    isEnded
+    isEnded,
+    isOwner,
+    questions,
+    isLoadingQuestions
   }
 }

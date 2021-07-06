@@ -24,7 +24,6 @@ import { SignInDialog } from './../components/SignInDialog/SignInDialog';
 import ConfirmModal from '../components/ConfirmModal/ConfirmModal';
 import { RoomPostSkeleton } from '../components/LoadingSkeleton/RoomPostSkeleton/RoomPostSkeleton';
 import { QuestionSkeleton } from './../components/LoadingSkeleton/QuestionSkeleton/QuestionSkeleton';
-import { useRooms } from '../hooks/useRooms';
 
 type RoomParams = {
   id: string;
@@ -42,7 +41,7 @@ type QuestionType = {
   isUserDeleted: boolean;
   isAdminDeleted: boolean;
   likeCount: number;
-  likeId: string | undefined;
+  likeId: string;
 };
 
 export function Room() {
@@ -51,38 +50,28 @@ export function Room() {
   const roomId = params.id;
   const { user, signOut } = useAuth();
 
-  const [isOwner, setIsOwner] = useState(false);
-  const [questions, setQuestions] = useState([] as QuestionType[]);
-
   const [showSignInModal, setShowSignInModal] = useState(false);
   const [showDeleteUserModal, setShowDeleteUserModal] = useState(false);
   const [showDeleteAdminModal, setShowDeleteAdminModal] = useState(false);
 
-  const { isLoading, title, description, author, isEnded } = useRoom(roomId);
-  const { handleLoadQuestions, isLoadingQuestions } = useRooms();
+  const {
+    isLoading,
+    title,
+    description,
+    author,
+    isEnded,
+    isOwner,
+    isLoadingQuestions,
+    questions,
+  } = useRoom(roomId);
 
   useEffect(() => {
-    if (questions.length <= 0) {
-      setQuestions(handleLoadQuestions(roomId));
-    }
     if (!isLoading) {
-      if (author.id === user?.id) {
-        setIsOwner(true);
-      }
       if (title === '') {
         history.push('/');
       }
     }
-  }, [
-    author.id,
-    handleLoadQuestions,
-    history,
-    isLoading,
-    questions.length,
-    roomId,
-    title,
-    user?.id,
-  ]);
+  }, [author.id, history, isLoading, title]);
 
   async function handleSendQuestion(questionText: string) {
     if (!user) {
@@ -158,6 +147,9 @@ export function Room() {
 
   function renderQuestionCardButtons(question: any) {
     if (isOwner) {
+      const isLiked = question.likeId.find(
+        ([key, like]: any) => like.authorId === user?.id,
+      )?.[0];
       return (
         <>
           <button
@@ -181,10 +173,10 @@ export function Room() {
             <AnswerIcon />
           </button>
           <button
-            className={`like-button ${question.likeId ? 'liked' : ''}`}
+            className={`like-button ${isLiked ? 'liked' : ''}`}
             type="button"
             aria-label="Marcar como gostei"
-            onClick={() => handleLikeQuestion(question.id, question.likeId)}>
+            onClick={() => handleLikeQuestion(question.id, isLiked)}>
             {question.likeCount > 0 && <span>{question.likeCount}</span>}
             <LikeIcon />
           </button>
@@ -225,6 +217,7 @@ export function Room() {
       );
     }
   }
+
   return (
     <Container>
       <ConfirmModal
