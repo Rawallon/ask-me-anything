@@ -28,6 +28,9 @@ declare module 'styled-components' {
       grad1: string
       grad2: string
 
+      skeletonBG: string
+      skeletonElement: string
+
       info: string
       infoBG: string
       warning: string

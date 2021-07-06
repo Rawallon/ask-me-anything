@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const QuestionCard = styled.div`
   position: relative;
   overflow: hidden;
-  background: ${props => props.theme.colors.cardBG};
+  background: ${props => props.theme.colors.skeletonBG};
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   padding: 24px;
@@ -11,29 +11,8 @@ export const QuestionCard = styled.div`
     margin-top: 8px;
   }
 
-  &.highlighted {
-    background: #e5f4ff;
-    border: 1px solid #53d7ff;
-
-    footer .user-info span {
-      color: #29292e;
-    }
-  }
-
-  &.answered {
-    background: #dbdcdd;
-  }
-
-  p {
-    color: #29292e;
-    &.deleted {
-      font-size: 0.875rem;
-      color: #737380;
-    }
-  }
-
   .post-question {
-    background: #777;
+    background: ${props => props.theme.colors.skeletonElement};
     width: 50%;
     padding: 12px 15px;
     height: 22px;
@@ -53,13 +32,13 @@ export const QuestionCard = styled.div`
         width: 32px;
         height: 32px;
         border-radius: 50%;
-        background: #777;
+        background: ${props => props.theme.colors.skeletonElement};
       }
       .user-name {
         margin-left: 8px;
         width: 70px;
         height: 17px;
-        background: #777;
+        background: ${props => props.theme.colors.skeletonElement};
       }
     }
 
@@ -68,7 +47,7 @@ export const QuestionCard = styled.div`
       gap: 16px;
       .user-option {
         border-radius: 4px;
-        background: #777;
+        background: ${props => props.theme.colors.skeletonElement};
         width: 24px;
         height: 24px;
       }

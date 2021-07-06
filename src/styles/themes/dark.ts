@@ -27,6 +27,9 @@ export default {
     grad1: '#166bff',
     grad2: '#22d3ee',
 
+    skeletonBG: '#ddd',
+    skeletonElement: '#777',
+
     info: '#0299e7',
     infoBG: '#0299e71a',
     warning: '#d97706',

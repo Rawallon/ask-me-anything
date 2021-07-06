@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const RoomCardContainer = styled.div`
   position: relative;
   overflow: hidden;
-  background: #ddd;
+  background: ${props => props.theme.colors.skeletonBG};
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   padding: 24px;
@@ -16,7 +16,7 @@ export const RoomCardContainer = styled.div`
     width: 210px;
     height: 17px;
     border-radius: 4px;
-    background: #777;
+    background: ${props => props.theme.colors.skeletonElement};
   }
 
   .post-info {
@@ -24,7 +24,7 @@ export const RoomCardContainer = styled.div`
       margin-bottom: 0.75rem;
       width: 590px;
       height: 33px;
-      background: #777;
+      background: ${props => props.theme.colors.skeletonElement};
       border-radius: 4px;
     }
     .post-description {
@@ -37,7 +37,7 @@ export const RoomCardContainer = styled.div`
 
       width: 100%;
       height: 72px;
-      background: #777;
+      background: ${props => props.theme.colors.skeletonElement};
       border-radius: 4px;
     }
   }

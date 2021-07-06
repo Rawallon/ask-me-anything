@@ -4,7 +4,7 @@ export const CreateRoomCardContainer = styled.div`
   position: relative;
   overflow: hidden;
 
-  background: #ddd;
+  background: ${props => props.theme.colors.skeletonBG};
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   padding: 1rem;
@@ -16,7 +16,7 @@ export const CreateRoomCardContainer = styled.div`
   }
 
   .user-image {
-    background: #777;
+    background: ${props => props.theme.colors.skeletonElement};
     border-radius: 50%;
     margin-right: 1.5rem;
     flex-basis: 32px;
@@ -29,6 +29,6 @@ export const CreateRoomCardContainer = styled.div`
     width: 100%;
     height: 45px;
     border-radius: 8px;
-    background-color: #777;
+    background-color: ${props => props.theme.colors.skeletonElement};
   }
 `

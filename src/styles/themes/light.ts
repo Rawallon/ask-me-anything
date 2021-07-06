@@ -2,16 +2,16 @@
 export default {
   title: 'light',
   colors: {
-    cardBG: 'rgb(255 255 255)',
-    cardBG80: 'rgba(255, 255, 255, 0.8)',
+    cardBG: '#fff',
+    cardBG80: '#ffffffcc',
     disabledCardBG: '#dbdcdd',
     disabledCardBG80: '#dbdcddcc',
     appBG: '#f8f8f8',
-    brandBG: 'rgb(22 107 255)',
-    buttonText: 'rgb(255 255 255)',
-    link: 'rgb(22 107 255)',
-    text: 'rgb(71 84 107)',
-    textHeading: 'rgb(45 55 72)',
+    brandBG: '#166bff',
+    buttonText: '#fff',
+    link: '#166bff',
+    text: '#47546b',
+    textHeading: '#2d3748',
     textMuted: '#5F718C',
     textDisabled: '#5F718C',
     textDeleted: '#737380',
@@ -25,6 +25,9 @@ export default {
 
     grad1: '#166bff',
     grad2: '#22d3ee',
+
+    skeletonBG: '#ddd',
+    skeletonElement: '#777',
 
     info: '#0299e7',
     infoBG: '#0299e71a',
