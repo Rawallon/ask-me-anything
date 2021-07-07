@@ -50,7 +50,7 @@ export function mapRoomData (roomData: FirebaseReturn) {
     title: value.title,
     description: value.description,
     author: value.author,
-    endedAt: value.endedAt,
+    endedAt: value.endedAt || null,
     questionNum: Object.keys(value.questions || {}).length
   }))
 }

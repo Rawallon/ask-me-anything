@@ -12,7 +12,7 @@ type RoomType = {
     name: string;
     avatar: string;
   };
-  endedAt: string | null;
+  endedAt?: string | null;
 };
 
 interface RoomItemProps {

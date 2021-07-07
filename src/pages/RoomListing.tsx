@@ -1,3 +1,5 @@
+import { useHistory } from 'react-router-dom';
+
 import emptyQuestionsImg from '../assets/images/empty-questions.svg';
 
 import { useAuth } from '../hooks/useAuth';
@@ -11,8 +13,15 @@ import { CreateRoomCardSkeleton } from './../components/LoadingSkeleton/CreateRo
 import { useRooms } from '../hooks/useRooms';
 
 export function RoomListing() {
+  const history = useHistory();
   const { user, signOut } = useAuth();
-  const { rooms, isLoadingRooms, handleCreateRoom } = useRooms();
+  const { rooms, isLoadingRooms, createRoom } = useRooms();
+  console.log(rooms);
+
+  async function handleCreateRoom(title: string, description: string) {
+    const newRoomId = await createRoom(title, description);
+    history.push('/rooms/' + newRoomId);
+  }
   return (
     <Container>
       <HeaderLayout user={user} signOut={signOut} />

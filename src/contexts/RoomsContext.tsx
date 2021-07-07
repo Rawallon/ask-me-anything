@@ -34,12 +34,12 @@ type RoomType = {
     name: string;
     avatar: string;
   };
-  endedAt: string | null;
+  endedAt?: string | null;
 };
 
 type RoomsContextType = {
   rooms: RoomType[];
-  handleCreateRoom: (
+  createRoom: (
     title: string,
     description: string,
   ) => Promise<string | null | undefined>;
@@ -82,20 +82,23 @@ export function RoomsContextProvider(props: RoomsContextProviderProps) {
     fetchRooms();
   }, [fetchRooms]);
 
-  async function handleCreateRoom(title: string, description: string) {
+  async function createRoom(title: string, description: string) {
     if (title.trim() === '' || !user) {
       return;
     }
-
-    const roomRef = database.ref('rooms');
-
-    const firebaseRoom = await roomRef.push({
+    const newRoom = {
       title,
       description,
       author: { id: user?.id, name: user?.name, avatar: user?.avatar },
-    });
+      questions: [],
+    };
+    const roomRef = database.ref('rooms');
+    const firebaseRoom = await roomRef.push(newRoom);
+    setRooms((oldRooms) => [
+      ...oldRooms,
+      { id: firebaseRoom.key || '', questionNum: 0, ...newRoom },
+    ]);
 
-    //history.push(`/rooms/${firebaseRoom.key}`);
     return firebaseRoom ? firebaseRoom.key : null;
   }
 
@@ -119,7 +122,7 @@ export function RoomsContextProvider(props: RoomsContextProviderProps) {
     <RoomsContext.Provider
       value={{
         rooms,
-        handleCreateRoom,
+        createRoom,
         isLoadingRooms,
         handleLoadQuestions,
         isLoadingQuestions,

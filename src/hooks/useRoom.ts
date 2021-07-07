@@ -90,8 +90,10 @@ export function useRoom (roomId: string): useRoomReturnType {
 
     roomRef.on('value', room => {
       const firebaseQuestions: FirebaseQuestions = room.val()
+      console.log(firebaseQuestions)
+
       if (!firebaseQuestions) {
-        setIsLoading(false)
+        setIsLoadingQuestions(false)
         return
       }
       const parsedQuestions = Object.entries(firebaseQuestions).map(
