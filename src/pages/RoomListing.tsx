@@ -16,7 +16,6 @@ export function RoomListing() {
   const history = useHistory();
   const { user, signOut } = useAuth();
   const { rooms, isLoadingRooms, createRoom } = useRooms();
-  console.log(rooms);
 
   async function handleCreateRoom(title: string, description: string) {
     const newRoomId = await createRoom(title, description);
