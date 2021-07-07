@@ -145,10 +145,11 @@ export function Room() {
   }
 
   function renderQuestionCardButtons(question: any) {
-    if (isOwner) {
-      const isLiked = question.likeId.find(
+    const isLiked =
+      question.likeId.find(
         ([key, like]: any) => like.authorId === user?.id,
-      )?.[0];
+      )?.[0] || null;
+    if (isOwner) {
       return (
         <>
           <button
@@ -194,10 +195,10 @@ export function Room() {
             </button>
           )}
           <button
-            className={`like-button ${question.likeId ? 'liked' : ''}`}
+            className={`like-button ${isLiked ? 'liked' : ''}`}
             type="button"
             aria-label="Marcar como gostei"
-            onClick={() => handleLikeQuestion(question.id, question.likeId)}>
+            onClick={() => handleLikeQuestion(question.id, isLiked)}>
             {question.likeCount > 0 && <span>{question.likeCount}</span>}
             <LikeIcon />
           </button>
