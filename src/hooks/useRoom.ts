@@ -52,6 +52,7 @@ type useRoomReturnType = {
   isOwner: boolean
   isLoadingQuestions: boolean
   questions: QuestionType[]
+  endRoom: (roomId: string) => void
 }
 export function useRoom (roomId: string): useRoomReturnType {
   const { user } = useAuth()
@@ -68,6 +69,13 @@ export function useRoom (roomId: string): useRoomReturnType {
   const [isEnded, setIsEnded] = useState(false)
   const [isLoadingQuestions, setIsLoadingQuestions] = useState(true)
   const [questions, setQuestions] = useState<QuestionType[]>([])
+
+  async function endRoom (roomId: string) {
+    await database.ref(`rooms/${roomId}`).update({
+      endedAt: new Date()
+    })
+    setIsEnded(true)
+  }
 
   useEffect(() => {
     if (rooms.length === 0) return
@@ -128,6 +136,7 @@ export function useRoom (roomId: string): useRoomReturnType {
     isEnded,
     isOwner,
     questions,
-    isLoadingQuestions
+    isLoadingQuestions,
+    endRoom
   }
 }

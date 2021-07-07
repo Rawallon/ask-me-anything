@@ -55,6 +55,7 @@ export function Room() {
   const [showDeleteAdminModal, setShowDeleteAdminModal] = useState(false);
 
   const {
+    endRoom,
     isLoading,
     title,
     description,
@@ -94,9 +95,7 @@ export function Room() {
 
   // Admin Actions
   async function handleEndRoom() {
-    await database.ref(`rooms/${roomId}`).update({
-      endedAt: new Date(),
-    });
+    endRoom(roomId);
   }
 
   async function handleCheckQuestionAsAnswered(
